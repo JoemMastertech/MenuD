@@ -1931,6 +1931,7 @@ textarea:focus {
 }
 
 /* Consolidated mobile responsive styles */
+/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
 @media (max-width: 480px) {
   :root { --table-width: 98%; --table-margin: 10px; }
   body { font-size: 13px; }
@@ -2109,6 +2110,7 @@ textarea:focus {
     font-size: 0.85rem;
   }
 }
+*/
 
 /* =================================================================
    RESPONSIVE DESIGN - PORTRAIT TABLETS (768px - 1024px)
@@ -2135,211 +2137,20 @@ textarea:focus {
 /* =================================================================
    RESPONSIVE DESIGN - MOBILE LANDSCAPE (max-width: 480px)
    ================================================================= */
+/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
 @media (max-width: 480px) and (orientation: landscape) {
-  /* Replicar comportamiento de escritorio en móviles landscape */
-  .content-wrapper { 
-    flex-direction: row;
-    gap: 8px;
-  }
-  
-  /* Grid con 3 columnas en landscape - ancho completo */
-  .product-grid { 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 8px; 
-    padding: 8px;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .category-grid { 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 8px; 
-    padding: 8px;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  /* Tabla de productos - ancho completo */
-  .product-table {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-  }
-  
-  #content-container {
-    padding: 0;
-    width: 100%;
-  }
-  
-  /* Modales más pequeños para landscape móvil */
-  .modal-content.image-modal {
-    max-width: 280px;
-    padding: 10px 8px;
-    margin: 8px;
-  }
-  
-  .modal-content.image-modal.video-modal {
-    width: 45%;
-    max-width: 320px;
-  }
-  
-  .modal-content.image-modal img {
-    max-height: 30vh;
-    margin: 4px 0;
-  }
-  
-  /* ORDER SIDEBAR - MOBILE LANDSCAPE (pegado al borde derecho) */
-  body.order-mode-active #app {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
-  .content-wrapper {
-    width: calc(100% - 140px);
-  }
-  
-  #order-sidebar {
-    width: 140px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 8px;
-    max-height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    font-size: 0.8rem;
-    border-radius: 0;
-  }
-  
-  #order-sidebar h3 {
-    font-size: 1rem;
-    margin-bottom: 8px;
-  }
-  
-  .order-item {
-    padding: 4px 0;
-    margin-bottom: 4px;
-  }
-  
-  .order-item-name {
-    font-size: 0.75rem;
-    line-height: 1.1;
-  }
-  
-  .order-item-price {
-    font-size: 0.7rem;
-  }
-  
-  .order-item-customization {
-    font-size: 0.65rem;
-    margin-top: 2px;
-  }
-  
-  .order-total h4 {
-    font-size: 0.85rem;
-    margin: 8px 0 4px 0;
-  }
-  
-  .order-actions {
-    flex-direction: column;
-    gap: 4px;
-    margin-top: 8px;
-  }
-  
-  .order-actions button {
-    padding: 6px 4px;
-    font-size: 0.7rem;
-    min-height: 28px;
-  }
-  
-  /* Botones hamburguesa y volver superpuestos */
-  .hamburger-btn,
-  .back-button-container {
-    position: fixed;
-    z-index: 1001;
-  }
-  
-  .hamburger-btn {
-    left: 15px;
-    top: 15px;
-  }
-  
-  .back-button-container {
-    left: 15px;
-    top: 65px;
-  }
+  // Estilos movidos a mobile.css para evitar conflictos
 }
+*/
 
 /* =================================================================
    RESPONSIVE DESIGN - MOBILE PORTRAIT (max-width: 480px)
    ================================================================= */
+/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
 @media (max-width: 480px) and (orientation: portrait) {
-  /* Maximizar ancho disponible en portrait */
-  :root { 
-    --table-width: 100%; 
-    --table-margin: 0px; 
-  }
-  
-  #content-container {
-    padding: 0 2px;
-  }
-  
-  /* Grid con 2 columnas en portrait - ancho completo */
-  .product-grid { 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 8px; 
-    padding: 8px 4px; 
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .category-grid { 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 8px; 
-    padding: 8px 4px;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  /* Tablas de productos - ancho completo */
-  .product-table {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-  }
-  
-  /* Botones hamburguesa y volver superpuestos */
-  .hamburger-btn,
-  .back-button-container {
-    position: fixed;
-    z-index: 1001;
-  }
-  
-  .hamburger-btn {
-    left: 8px;
-    top: 8px;
-  }
-  
-  .back-button-container {
-    left: 8px;
-    top: 58px;
-  }
-  
-  /* ORDER SIDEBAR - MOBILE PORTRAIT (parte inferior) */
-  #order-sidebar {
-    width: 100%;
-    position: relative;
-    top: auto;
-    right: auto;
-    margin: 10px 0 0 0;
-    padding: 12px 8px;
-    max-height: 60vh;
-    overflow-x: hidden;
-    box-sizing: border-box;
-  }
+  // Estilos movidos a mobile.css para evitar conflictos
 }
+*/
 
 /* =================================================================
    RESPONSIVE DESIGN - LANDSCAPE TABLETS (768px - 1024px)
@@ -2614,9 +2425,10 @@ textarea:focus {
 }
 
 /* Cuando el modo orden está activo, desplazar el contenedor maestro hacia la izquierda */
-body.order-mode-active #app {
-  margin-left: calc(50% - 35% - 110px); /* Desplaza hacia la izquierda para hacer espacio al sidebar */
-}
+/* COMMENTED OUT - This was causing content to disappear on mobile */
+/* body.order-mode-active #app {
+  margin-left: calc(50% - 35% - 110px);
+} */
 
 .content-wrapper.order-active {
   gap: 1px;
