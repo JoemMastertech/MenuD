@@ -263,9 +263,9 @@
   
   /* Contenedor principal para portrait - sin sidebar lateral */
   .content-wrapper {
-    width: 100vw !important;
+    width: 90vw !important;
     min-height: 100vh !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     padding: 0 !important;
     overflow-y: auto;
     overflow-x: hidden;
@@ -286,15 +286,15 @@
     box-sizing: border-box;
   }
   
-  /* Grids para portrait - 2 columnas con ancho ampliado */
+  /* Grids para portrait - 2 columnas con ancho normal */
   .product-grid,
   .category-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: var(--mobile-gap) !important;
     padding: var(--mobile-padding) !important;
-    width: 125% !important; /* Ampliado 25% para cubrir bordes */
-    max-width: 125% !important;
-    margin: 0 -12.5% !important; /* Centrar el contenido ampliado */
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     box-sizing: border-box;
   }
   
@@ -383,7 +383,7 @@
     box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   }
   
-  /* Sidebar fijo en la parte inferior para portrait */
+  /* Sidebar fijo en la parte inferior para portrait - oculto por defecto */
   #order-sidebar {
     position: fixed !important;
     bottom: 0 !important;
@@ -402,6 +402,19 @@
     background: var(--card-bg);
     border-top: 2px solid var(--border-color);
     box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    transform: translateY(100%) !important;
+    transition: transform 0.3s ease !important;
+  }
+  
+  /* Mostrar sidebar solo cuando tenga contenido */
+  #order-sidebar.has-items {
+    transform: translateY(0) !important;
+  }
+  
+  /* Logo reducido en móviles portrait */
+  .logo,
+  .main-logo {
+    max-width: 210px !important; /* 30% menos que 300px */
   }
   
   #order-sidebar h3 {
