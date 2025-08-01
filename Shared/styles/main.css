@@ -1770,6 +1770,22 @@ textarea:focus {
   body.order-mode-active #app {
     margin-left: auto;
   }
+}
+
+/* Mobile specific styles */
+@media (max-width: 480px) {
+  #app {
+    width: 95vw;
+    margin-left: 2.5vw;
+  }
+  
+  /* Ajustes específicos para modo tabla en móviles */
+  .product-table, .liquor-table {
+    width: 90%;
+    max-width: 90%;
+    margin: 0;
+    margin-left: 5%;
+  }
   
   /* ORDER SIDEBAR - TABLET RESPONSIVE */
   #order-sidebar { 
@@ -2354,6 +2370,8 @@ textarea:focus {
   cursor: pointer;
   z-index: 1000;
   transition: all var(--transition-time) ease;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .hamburger-btn:hover {
