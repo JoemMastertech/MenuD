@@ -30,8 +30,9 @@
     display: flex !important;
     flex-direction: row !important;
     width: 100vw !important;
+    max-width: 100vw !important;
     height: 100vh !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     padding: 0 !important;
     overflow-y: auto;
     overflow-x: hidden;
@@ -219,12 +220,12 @@
     padding: 4px 6px !important;
   }
   
-  /* Tablas optimizadas */
+  /* Tablas optimizadas con reducción del 10% */
   .product-table,
   .liquor-table {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+    width: 90% !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
     padding: var(--mobile-gap) !important;
   }
   
@@ -263,13 +264,46 @@
   
   /* Contenedor principal para portrait - sin sidebar lateral */
   .content-wrapper {
-    width: 90vw !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
     min-height: 100vh !important;
     margin: 0 auto !important;
     padding: 0 !important;
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
+  }
+  
+  /* Reducir espaciado entre nombre e imagen en tarjetas de productos */
+  .product-card .product-name {
+    margin-bottom: 5px !important;
+  }
+  
+  .product-card .product-media {
+    margin-bottom: 8px !important;
+  }
+  
+  /* Hacer precios más responsive y reducir espaciado con imagen */
+  .product-card.liquor-card .product-prices {
+    gap: 2px !important;
+    margin-top: 5px !important;
+  }
+  
+  .product-card.liquor-card .price-button {
+    font-size: 0.6rem !important;
+    padding: 2px 4px !important;
+    min-width: 35px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  .product-card.liquor-card .price-label {
+    font-size: 0.5rem !important;
+    min-width: 25px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   
   /* Resetear contenedor flex para móvil portrait */
@@ -313,12 +347,12 @@
     font-size: var(--mobile-font-small) !important;
   }
   
-  /* Tablas para portrait */
+  /* Tablas para portrait con reducción del 10% */
   .product-table,
   .liquor-table {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+    width: 90% !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
     padding: var(--mobile-padding) !important;
   }
   
@@ -328,19 +362,33 @@
     font-size: var(--mobile-font-base) !important;
   }
   
-  /* Botones de navegación superpuestos */
+  /* Botones de navegación superpuestos - apariencia como desktop */
   .hamburger-btn,
   .back-button-container {
     position: fixed !important;
     z-index: 1001 !important;
-    background: rgba(0,0,0,0.8);
-    border-radius: 50%;
-    padding: 8px;
   }
   
   .hamburger-btn {
     left: var(--mobile-padding) !important;
     top: var(--mobile-padding) !important;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all var(--transition-time) ease;
+    border-radius: 8px;
+  }
+  
+  .hamburger-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
   }
   
   .back-button-container {
