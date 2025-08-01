@@ -97,8 +97,8 @@
     justify-content: center !important;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 0 !important;
-    box-shadow: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
   }
   
   .hamburger-btn {
@@ -202,19 +202,30 @@
     grid-template-columns: repeat(2, 1fr) !important;
   }
   
-  /* Tarjetas de producto optimizadas */
+  /* Tarjetas de producto optimizadas con espaciado reducido */
   .product-card {
     min-height: 200px !important;
     padding: 6px !important;
   }
-  
+
   .product-card .product-name {
     font-size: var(--mobile-font-small) !important;
     line-height: 1.2 !important;
+    margin-bottom: 2px !important;
   }
-  
+
+  .product-card .product-media {
+    margin-bottom: 4px !important;
+  }
+
   .product-card .product-ingredients {
     font-size: var(--mobile-font-tiny) !important;
+  }
+
+  /* Precios con espaciado reducido en landscape */
+  .product-card.liquor-card .product-prices {
+    gap: 1px !important;
+    margin-top: 2px !important;
   }
   
   .product-card .price-button {
@@ -222,12 +233,13 @@
     padding: 4px 6px !important;
   }
   
-  /* Tablas optimizadas con reducción del 10% */
+  /* Tablas optimizadas con reducción del 10% y ajuste hacia la izquierda */
   .product-table,
   .liquor-table {
     width: 90% !important;
     max-width: 90% !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
+    margin-left: 5% !important;
     padding: var(--mobile-gap) !important;
   }
   
@@ -279,17 +291,17 @@
   
   /* Reducir espaciado entre nombre e imagen en tarjetas de productos */
   .product-card .product-name {
-    margin-bottom: 5px !important;
+    margin-bottom: 2px !important;
   }
-  
+
   .product-card .product-media {
-    margin-bottom: 8px !important;
+    margin-bottom: 4px !important;
   }
-  
+
   /* Hacer precios más responsive y reducir espaciado con imagen */
   .product-card.liquor-card .product-prices {
-    gap: 2px !important;
-    margin-top: 5px !important;
+    gap: 1px !important;
+    margin-top: 2px !important;
   }
   
   .product-card.liquor-card .price-button {
@@ -350,12 +362,13 @@
     font-size: var(--mobile-font-small) !important;
   }
   
-  /* Tablas para portrait con reducción del 10% */
+  /* Tablas para portrait con reducción del 10% y ajuste hacia la izquierda */
   .product-table,
   .liquor-table {
     width: 90% !important;
     max-width: 90% !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
+    margin-left: 5% !important;
     padding: var(--mobile-padding) !important;
   }
   
@@ -375,18 +388,19 @@
   .hamburger-btn {
     left: var(--mobile-padding) !important;
     top: var(--mobile-padding) !important;
-    background: var(--card-bg);
-    border: 2px solid var(--primary-color);
-    color: var(--text-color);
-    font-size: 1.2rem;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: var(--card-bg) !important;
+    border: 2px solid var(--primary-color) !important;
+    color: var(--text-color) !important;
+    font-size: 1.2rem !important;
+    width: 45px !important;
+    height: 45px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     cursor: pointer;
     transition: all var(--transition-time) ease;
-    border-radius: 8px;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
   }
   
   .hamburger-btn:hover {
