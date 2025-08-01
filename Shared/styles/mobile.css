@@ -29,10 +29,11 @@
   .content-wrapper {
     display: flex !important;
     flex-direction: row !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
+    width: 95vw !important;
+    max-width: 95vw !important;
     height: 100vh !important;
     margin: 0 auto !important;
+    margin-left: 2.5vw !important;
     padding: 0 !important;
     overflow-y: auto;
     overflow-x: hidden;
@@ -42,7 +43,8 @@
   
   /* Contenedor principal cuando hay sidebar activo */
   .content-wrapper.with-sidebar {
-    width: calc(100vw - var(--mobile-sidebar-width)) !important;
+    width: calc(95vw - var(--mobile-sidebar-width)) !important;
+    margin-left: 2.5vw !important;
   }
   
   /* Resetear contenedor flex para móvil landscape */
@@ -78,25 +80,25 @@
     transform: translateX(0);
   }
   
-  /* Botón hamburguesa fijo en landscape */
+  /* Botón hamburguesa fijo en landscape - estilo escritorio */
   .hamburger-btn,
   .back-btn {
     position: fixed !important;
     top: 20px !important;
     width: 50px !important;
     height: 50px !important;
-    border-radius: 50% !important;
-    background: var(--primary-color) !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    background: var(--card-bg) !important;
+    border: 2px solid var(--primary-color) !important;
+    color: var(--text-color) !important;
+    font-size: 1.5rem !important;
     z-index: 1001 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    font-size: 18px !important;
     cursor: pointer;
     transition: all 0.3s ease;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
   
   .hamburger-btn {
@@ -109,8 +111,8 @@
   
   .hamburger-btn:hover,
   .back-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    background-color: var(--primary-color) !important;
+    color: var(--background-color) !important;
   }
   
   /* Modo tabla - comportamiento de escritorio */
@@ -264,10 +266,11 @@
   
   /* Contenedor principal para portrait - sin sidebar lateral */
   .content-wrapper {
-    width: 100vw !important;
-    max-width: 100vw !important;
+    width: 95vw !important;
+    max-width: 95vw !important;
     min-height: 100vh !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
+    margin-left: 2.5vw !important;
     padding: 0 !important;
     overflow-y: auto;
     overflow-x: hidden;
