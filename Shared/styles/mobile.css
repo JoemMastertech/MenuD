@@ -276,17 +276,26 @@
     min-height: 100vh !important;
   }
   
-  /* Contenedor principal para portrait - sin sidebar lateral */
+  /* Contenedor principal para portrait - adaptación completa */
   .content-wrapper {
-    width: 95vw !important;
-    max-width: 95vw !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
     min-height: 100vh !important;
     margin: 0 !important;
-    margin-left: 2.5vw !important;
     padding: 0 !important;
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
+  }
+  
+  /* Contenedor de contenido adaptado para modo tabla */
+  #content-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: var(--mobile-padding) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
   }
   
   /* Reducir espaciado entre nombre e imagen en tarjetas de productos */
@@ -362,14 +371,16 @@
     font-size: var(--mobile-font-small) !important;
   }
   
-  /* Tablas para portrait con reducción del 10% y ajuste hacia la izquierda */
+  /* Tablas para portrait - adaptación completa a pantalla vertical */
   .product-table,
   .liquor-table {
-    width: 90% !important;
-    max-width: 90% !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
-    margin-left: 5% !important;
     padding: var(--mobile-padding) !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    display: block !important;
   }
   
   .product-table th,
@@ -580,14 +591,16 @@
     margin: 10px 0;
   }
   
-  /* Modo tabla mínimo óptimo por defecto */
+  /* Modo tabla adaptado completamente a pantalla vertical */
   .product-table,
   .liquor-table {
     width: 100% !important;
+    max-width: 100vw !important;
     font-size: var(--mobile-font-small) !important;
-    transform: scale(0.85) !important;
-    transform-origin: top left !important;
     margin-bottom: 20px !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    border-collapse: collapse !important;
   }
   
   .product-table th,

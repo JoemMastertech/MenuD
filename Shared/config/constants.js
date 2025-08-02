@@ -3,7 +3,7 @@
 export const BUSINESS_RULES = {
   // Drink and order limits
   MAX_DRINK_COUNT: 5,
-  MAX_JUICE_COUNT: 10,
+  MAX_JUICE_COUNT: 2,
   MIN_ORDER_AMOUNT: 0,
   MAX_ORDER_AMOUNT: 10000,
   
@@ -94,7 +94,13 @@ export const PRODUCT_CATEGORIES = {
   TEQUILA: 'TEQUILA',
   WHISKY: 'WHISKY',
   BRANDY: 'BRANDY',
-  JAGERMEISTER: 'JAGERMEISTER'
+  JAGERMEISTER: 'JAGERMEISTER',
+  
+  // Category groups
+  FOOD: ['pizzas', 'alitas', 'sopas', 'ensaladas'],
+  MEAT: 'carnes',
+  DIGESTIVOS: 'digestivos',
+  ESPUMOSOS: 'espumosos'
 };
 
 export const DRINK_TYPES = {
@@ -209,6 +215,49 @@ export const DEBUG = {
   // Development helpers
   MOCK_DATA_ENABLED: false,
   SKIP_VALIDATIONS: false
+};
+
+// Order System Constants
+export const ORDER_SYSTEM = {
+  // Special products
+  SPECIAL_PRODUCTS: {
+    HIPNOTIQ: 'Hpnotiq',
+    BAILEYS: 'Baileys',
+    JAGERMEISTER: 'Jägermeister'
+  },
+  
+  // Price types
+  PRICE_TYPES: {
+    BOTTLE: 'botella',
+    LITER: 'litro'
+  },
+  
+  // DOM Selectors
+  SELECTORS: {
+    DRINK_MODAL: '#drink-modal',
+    DRINK_OPTIONS: '.drink-option',
+    JAGER_BOOST_CHECKBOXES: '.jager-boost-checkbox',
+    PRICE_BUTTONS: '.price-button',
+    ORDER_SIDEBAR: '#order-sidebar',
+    ORDER_ITEMS: '#order-items',
+    ORDER_TOTAL: '#order-total-amount'
+  },
+  
+  // Messages
+  MESSAGES: {
+    SELECT_DRINK_OPTION: 'Por favor, selecciona una opción de bebida.',
+    INVALID_DRINK_SELECTION: 'Selección de bebida inválida.'
+  },
+  
+  // Product options
+  PRODUCT_OPTIONS: {
+    VODKA: ['Smirnoff', 'Absolut', 'Grey Goose'],
+    GINEBRA: ['Bombay', 'Tanqueray', 'Hendricks'],
+    RON: ['Bacardi', 'Captain Morgan', 'Havana Club'],
+    TEQUILA: ['Jose Cuervo', 'Don Julio', 'Herradura'],
+    WHISKY: ['Johnnie Walker', 'Jack Daniels', 'Chivas Regal'],
+    BRANDY: ['Hennessy', 'Martell', 'Remy Martin']
+  }
 };
 
 export const API = {

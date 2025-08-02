@@ -13,11 +13,20 @@
   --glow-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
   --glow-shadow-hover: 0 0 20px rgba(0, 247, 255, 0.6);
   
-  /* Layout Variables */
+  /* Layout Variables - Sistema Fluido */
   --transition-time: 0.3s;
-  --table-width: 95%;
-  --table-max-width: 1400px;
-  --table-margin: 20px;
+  --container-width: 100%;
+  --container-max-width: min(1400px, 95vw);
+  --container-margin: clamp(0.5rem, 2vw, 2rem);
+  --container-padding: clamp(1rem, 3vw, 2rem);
+  --gap-small: clamp(0.5rem, 1vw, 1rem);
+  --gap-medium: clamp(1rem, 2vw, 1.5rem);
+  --gap-large: clamp(1.5rem, 3vw, 2.5rem);
+  
+  /* Legacy support */
+  --table-width: 100%;
+  --table-max-width: min(1400px, 95vw);
+  --table-margin: clamp(0.5rem, 2vw, 2rem);
   
   /* Legacy support */
   --primary: #f3f6f6;
@@ -44,10 +53,13 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--background-color); min-height: 100vh; overflow-y: auto; }
 #app { 
-  width: 70%; 
+  width: 100%; 
+  max-width: 100vw;
   min-height: 100vh; 
   position: relative; 
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   transition: margin-left 0.3s ease-in-out;
 }
 .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1; }
@@ -62,8 +74,8 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
   animation: fadeIn 1s ease-in-out;
 }
 
-.welcome-text { font-size: 3rem; }
-.title-text, .category-title { font-size: 2.5rem; }
+.welcome-text { font-size: clamp(2rem, 5vw, 3rem); }
+.title-text, .category-title { font-size: clamp(1.5rem, 4vw, 2.5rem); }
 
 .logo-container {
   display: flex;
@@ -116,20 +128,22 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
   background: transparent;
   border: 2px solid var(--primary-color);
   color: var(--text-color);
-  padding: 8px 15px;
-  font: 600 1rem 'Montserrat', sans-serif;
+  padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 15px);
+  font: 600 clamp(0.8rem, 1.5vw, 1rem) 'Montserrat', sans-serif;
   cursor: pointer;
   transition: all var(--transition-time) ease;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .view-toggle-btn {
-  font-size: 1.2rem;
-  width: 50px;
-  height: 50px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  width: clamp(40px, 8vw, 50px);
+  height: clamp(40px, 8vw, 50px);
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: clamp(4px, 1vw, 8px);
   backdrop-filter: blur(10px);
   font-weight: bold;
 }
@@ -225,17 +239,26 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 
 .content-wrapper {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
-  gap: 0px;
+  max-width: 100vw;
+  gap: var(--gap-medium);
   position: relative;
-  margin-top: 0;
-  padding-right: 0px;
+  margin: 0;
+  padding: var(--container-padding);
+  box-sizing: border-box;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 #content-container {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
   padding: 0;
-  margin-right: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .content-container-flex {
@@ -310,13 +333,14 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
    TABLES & GRID CONTAINERS
    ================================================================= */
 .container, .product-table, .liquor-table, .category-grid, .product-grid {
-  width: var(--table-width);
-  max-width: var(--table-max-width);
-  margin: var(--table-margin) auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   background: var(--card-bg);
-  border-radius: 15px;
-  box-shadow: 0 0 20px var(--border-color);
+  border-radius: clamp(8px, 1.5vw, 15px);
+  box-shadow: 0 0 clamp(10px, 2vw, 20px) var(--border-color);
   position: relative;
+  box-sizing: border-box;
 }
 
 .container {
@@ -326,8 +350,10 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 
 .product-table, .liquor-table {
   border-collapse: separate;
-  border-spacing: 0 10px;
-  padding: 20px;
+  border-spacing: 0 clamp(5px, 1vw, 10px);
+  padding: var(--container-padding);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .product-table::before, .liquor-table::before, .category-grid::before {
@@ -340,13 +366,13 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 }
 
 .product-table th, .liquor-table th {
-  font: 600 1rem 'Montserrat', sans-serif;
+  font: 600 clamp(0.8rem, 1.5vw, 1rem) 'Montserrat', sans-serif;
   color: var(--primary-color);
   text-align: center;
-  padding: 15px 10px;
+  padding: clamp(10px, 2vw, 15px) clamp(5px, 1vw, 10px);
   border-bottom: 2px solid var(--border-color);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: clamp(0.5px, 0.1vw, 1px);
 }
 
 .product-table th:first-child, .liquor-table th:first-child {
@@ -355,11 +381,12 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 }
 
 .product-table td, .liquor-table td {
-  padding: 15px 10px;
+  padding: clamp(10px, 2vw, 15px) clamp(5px, 1vw, 10px);
   background: transparent;
   transition: all 0.3s ease;
   text-align: center;
   vertical-align: middle;
+  font-size: clamp(0.75rem, 1.25vw, 1rem);
 }
 
 .product-table td:first-child, .liquor-table td:first-child {
@@ -455,23 +482,24 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
    ================================================================= */
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto auto auto;
-  gap: 20px;
-  row-gap: 10px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 20vw, 250px), 1fr));
+  grid-template-rows: auto;
+  gap: var(--gap-medium);
+  row-gap: var(--gap-small);
+  padding: var(--container-padding);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .product-grid {
   display: grid;
-  /* Nivel 1: Espacio fijo asignado - Grid base de 3 columnas para desktop */
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(15px, 2.5vw, 25px);
-  padding: clamp(15px, 2.5vw, 25px);
-  /* Contenedor con ancho máximo para mantener proporciones */
-  max-width: var(--table-max-width);
-  margin: 0 auto;
-  width: var(--table-width);
+  grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 18vw, 220px), 1fr));
+  gap: var(--gap-medium);
+  padding: var(--container-padding);
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .category-grid .page-title, .product-grid .page-title {
@@ -491,15 +519,17 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
    ================================================================= */
 .category-card, .product-card {
   background: var(--card-bg);
-  border-radius: 10px;
+  border-radius: clamp(6px, 1.5vw, 10px);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
-  box-shadow: 0 0 10px var(--border-color);
+  padding: var(--gap-medium);
+  box-shadow: 0 0 clamp(5px, 1.5vw, 10px) var(--border-color);
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .category-card:hover, .product-card:hover {
@@ -520,36 +550,33 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 }
 
 .category-name {
-  font: 600 1rem 'Montserrat', sans-serif;
+  font: 600 clamp(0.8rem, 1.5vw, 1rem) 'Montserrat', sans-serif;
   color: white;
   text-align: center;
+  box-sizing: border-box;
 }
 
 /* Product Card - Adaptación dentro del espacio asignado */
 .product-card {
-  /* Altura flexible que se adapta al contenido pero mantiene consistencia */
-  min-height: clamp(300px, 35vh, 400px);
-  /* max-height: removido para permitir expansión según contenido */
+  min-height: clamp(250px, 30vh, 350px);
   height: auto;
   display: flex;
   flex-direction: column;
-  padding: clamp(15px, 1.8vw, 20px);
-  gap: clamp(10px, 1.2vw, 15px);
+  padding: var(--gap-medium);
+  gap: var(--gap-small);
+  box-sizing: border-box;
 }
 
 /* Product Card Elements - Sistema responsive de dos niveles */
 .product-card .product-name {
-  font: 600 1.1rem 'Montserrat', sans-serif;
+  font: 600 clamp(0.8rem, 1.5vw, 1.1rem) 'Montserrat', sans-serif;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: var(--gap-small);
   text-align: center;
   order: 1;
-  
-  /* NIVEL 1: Espacio fijo asignado al componente - reducido 20% */
-  height: clamp(1.92rem, 2.88vw + 0.8rem, 2.56rem);
-  
-  /* NIVEL 2: Contenido se adapta al espacio disponible - aumentado 25% */
-  font-size: clamp(0.69rem, 1.46vw + 0.406rem, 0.975rem);
+  height: auto;
+  min-height: clamp(1.5rem, 3vw, 2.5rem);
+  box-sizing: border-box;
   line-height: clamp(1.2, 1.5vw + 1rem, 1.4);
   
   /* Configuración sin truncamiento - texto completo visible */
@@ -1268,16 +1295,21 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
    ORDER SIDEBAR - BASE STYLES (DESKTOP)
    ================================================================= */
 #order-sidebar {
-  width: 240px;
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: clamp(280px, 25vw, 320px);
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--gap-medium);
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: clamp(4px, 1vw, 8px);
   backdrop-filter: blur(10px);
   position: fixed;
-  top: 20px;
-  right: 20px;
-  max-height: calc(100vh - 40px);
+  top: var(--gap-medium);
+  right: var(--gap-medium);
+  max-height: calc(100vh - calc(var(--gap-medium) * 2));
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1000;
@@ -1305,10 +1337,14 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 }
 
 .order-item {
+  display: flex;
+  flex-direction: column;
   border-bottom: 1px solid var(--border-color);
-  padding: 10px 0;
-  margin-bottom: 10px;
+  padding: 0.625rem 0;
+  margin-bottom: 0.625rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -1353,20 +1389,24 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 }
 
 .order-actions {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   justify-content: space-between;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .order-actions button {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
-  padding: 10px 8px;
+  padding: 0.625rem 0.5rem;
   font-size: 0.9rem;
+  box-sizing: border-box;
 }
 
 .modal-actions {
@@ -1764,11 +1804,31 @@ textarea:focus {
 @media (max-width: 768px) {
   :root { --table-width: 95%; --table-margin: 15px; }
   body { font-size: 14px; }
-  .content-wrapper { flex-direction: column; gap: 5px; }
+  .content-wrapper { 
+    flex-direction: column; 
+    gap: 1rem;
+    padding: 0.5rem;
+  }
   
   /* En tablets y móviles, no desplazar el contenedor maestro */
   body.order-mode-active #app {
     margin-left: auto;
+  }
+  
+  /* ORDER SIDEBAR - TABLET RESPONSIVE */
+  #order-sidebar {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 1rem 0;
+    padding: 1rem;
+    max-height: 60vh;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 }
 
@@ -1787,17 +1847,22 @@ textarea:focus {
     margin-left: 5%;
   }
   
-  /* ORDER SIDEBAR - TABLET RESPONSIVE */
+  /* ORDER SIDEBAR - MOBILE RESPONSIVE */
   #order-sidebar { 
-    width: 100%;
     position: relative;
     top: auto;
     right: auto;
-    margin: 20px 0 0 0; 
-    padding: 15px;
-    max-height: 70vh;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    max-height: 50vh;
     overflow-x: hidden;
     box-sizing: border-box;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
   #order-sidebar h3 {
     font-size: 1.3rem;
@@ -2124,18 +2189,27 @@ textarea:focus {
    RESPONSIVE DESIGN - PORTRAIT TABLETS (768px - 1024px)
    ================================================================= */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-  .content-wrapper { flex-direction: column; gap: 10px; }
+  .content-wrapper { 
+    flex-direction: column; 
+    gap: 1.5rem;
+    padding: 1rem;
+  }
   /* ORDER SIDEBAR - PORTRAIT TABLET RESPONSIVE */
   #order-sidebar { 
-    width: 100%;
     position: relative;
     top: auto;
     right: auto;
-    margin: 15px 0 0 0; 
-    padding: 20px;
-    max-height: 60vh;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 1rem 0;
+    padding: 1.25rem;
+    max-height: 55vh;
     overflow-x: hidden;
     box-sizing: border-box;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; }
   .category-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; }
@@ -2165,16 +2239,23 @@ textarea:focus {
    ================================================================= */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   /* Layout adjustments for landscape */
-  .content-wrapper { flex-direction: row; }
+  .content-wrapper { 
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
   /* ORDER SIDEBAR - LANDSCAPE TABLET RESPONSIVE */
   #order-sidebar { 
-    width: 240px;
-    margin-left: auto;
-    margin-right: 0;
-    padding: 15px;
+    width: clamp(260px, 30vw, 340px);
+    max-width: 35%;
+    min-width: 260px;
+    margin: 0;
+    padding: 1rem;
     max-height: 75vh;
     overflow-x: hidden;
     box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
   #order-sidebar h3 {
     font-size: 1.4rem;
@@ -2233,26 +2314,130 @@ textarea:focus {
 }
 
 /* =================================================================
-   RESPONSIVE DESIGN - LARGE DESKTOP (min-width: 1200px)
+   RESPONSIVE DESIGN - SISTEMA COMPLETAMENTE FLUIDO Y ADAPTATIVO
    ================================================================= */
-@media (min-width: 1200px) {
-  /* ORDER SIDEBAR - LARGE DESKTOP RESPONSIVE */
+
+/* Pantallas grandes - Comportamiento lateral del order-sidebar */
+@media (min-width: 1025px) {
+  .content-wrapper {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--gap-large);
+  }
+  
   #order-sidebar {
-    width: 240px;
-    padding: 15px;
-    max-height: 85vh;
-    overflow-x: hidden;
-    box-sizing: border-box;
+    position: fixed;
+    top: var(--gap-medium);
+    right: var(--gap-medium);
+    width: clamp(280px, 25vw, 320px);
+    max-height: calc(100vh - calc(var(--gap-medium) * 2));
+    order: 2;
   }
   
-  #order-sidebar h3 {
-    font-size: 1.6rem;
-    margin-bottom: 18px;
+  #content-container {
+    margin-right: clamp(300px, 27vw, 340px);
+    width: calc(100% - clamp(300px, 27vw, 340px));
+    max-width: calc(100% - clamp(300px, 27vw, 340px));
+    order: 1;
+  }
+}
+
+/* Pantallas medianas - Comportamiento lateral mejorado */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .content-wrapper {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--gap-medium);
+    padding: var(--container-padding);
   }
   
-  .order-item {
-    padding: 12px 0;
-    margin-bottom: 12px;
+  #order-sidebar {
+    position: fixed;
+    top: var(--gap-medium);
+    right: var(--gap-medium);
+    width: clamp(260px, 28vw, 300px);
+    max-width: 30%;
+    min-width: 260px;
+    max-height: calc(100vh - calc(var(--gap-medium) * 2));
+  }
+  
+  #content-container {
+    margin-right: clamp(280px, 30vw, 320px);
+    width: calc(100% - clamp(280px, 30vw, 320px));
+    max-width: calc(100% - clamp(280px, 30vw, 320px));
+  }
+}
+
+/* Pantallas pequeñas - Order-sidebar debajo del contenido */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: var(--gap-medium);
+    padding: var(--gap-small);
+  }
+  
+  #order-sidebar {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: var(--gap-medium) 0 0 0 !important;
+    top: auto !important;
+    right: auto !important;
+    max-height: 50vh;
+    order: 2;
+  }
+  
+  #content-container {
+    width: 100%;
+    order: 1;
+    margin: 0;
+  }
+}
+
+/* Móviles - Layout completamente vertical */
+@media (max-width: 480px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: var(--gap-medium);
+    padding: var(--gap-small);
+  }
+  
+  #order-sidebar {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: var(--gap-medium) 0 0 0 !important;
+    top: auto !important;
+    right: auto !important;
+    max-height: 50vh;
+    order: 2;
+  }
+  
+  #content-container {
+    width: 100%;
+    order: 1;
+  }
+  
+  /* Reducción progresiva para móviles */
+  .category-grid, .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 40vw, 150px), 1fr));
+    gap: var(--gap-small);
+  }
+  
+  .product-table, .liquor-table {
+    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+  }
+  
+  .product-table th, .liquor-table th {
+    padding: clamp(5px, 1.5vw, 8px) clamp(3px, 1vw, 5px);
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+  }
+  
+  .product-table td, .liquor-table td {
+    padding: clamp(5px, 1.5vw, 8px) clamp(3px, 1vw, 5px);
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+  }
+}
   }
   
   .order-item-name {
