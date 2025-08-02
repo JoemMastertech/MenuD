@@ -2369,6 +2369,7 @@ textarea:focus {
 }
 
 /* Pantallas pequeñas - Order-sidebar debajo del contenido */
+/* COMENTADO: Conflicto con mobile.css - mobile.css maneja estos estilos
 @media (max-width: 768px) {
   .content-wrapper {
     flex-direction: column;
@@ -2386,15 +2387,18 @@ textarea:focus {
     max-height: 50vh;
     order: 2;
   }
-  
+
   #content-container {
     width: 100%;
     order: 1;
     margin: 0;
   }
 }
+*/
+*/
 
 /* Móviles - Layout completamente vertical */
+/* COMENTADO: Conflicto con mobile.css - mobile.css maneja estos estilos
 @media (max-width: 480px) {
   .content-wrapper {
     flex-direction: column;
@@ -2438,7 +2442,7 @@ textarea:focus {
     font-size: clamp(0.6rem, 2vw, 0.75rem);
   }
 }
-  }
+*/
   
   .order-item-name {
     font-size: 1rem;
