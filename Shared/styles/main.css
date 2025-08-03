@@ -1847,7 +1847,8 @@ textarea:focus {
     margin-left: 5%;
   }
   
-  /* ORDER SIDEBAR - MOBILE RESPONSIVE */
+  /* COMENTADO: ORDER SIDEBAR - MOBILE RESPONSIVE - Manejado por mobile.css */
+  /*
   #order-sidebar { 
     position: relative;
     top: auto;
@@ -1868,6 +1869,7 @@ textarea:focus {
     font-size: 1.3rem;
     margin-bottom: 12px;
   }
+  */
   .order-item {
     padding: 8px 0;
     margin-bottom: 8px;
@@ -2021,7 +2023,8 @@ textarea:focus {
     margin-left: auto;
   }
   
-  /* ORDER SIDEBAR - MOBILE RESPONSIVE */
+  /* COMENTADO: ORDER SIDEBAR - MOBILE RESPONSIVE - Manejado por mobile.css */
+  /*
   #order-sidebar {
     width: 100%;
     position: relative;
@@ -2037,6 +2040,7 @@ textarea:focus {
     font-size: 1.2rem;
     margin-bottom: 10px;
   }
+  */
   .order-item {
     padding: 6px 0;
     margin-bottom: 6px;
@@ -2368,8 +2372,8 @@ textarea:focus {
   }
 }
 
-/* Pantallas pequeñas - Order-sidebar debajo del contenido */
-/* COMENTADO: Conflicto con mobile.css - mobile.css maneja estos estilos
+/* COMENTADO: Reglas conflictivas con mobile.css - mobile.css maneja estos estilos */
+/*
 @media (max-width: 768px) {
   .content-wrapper {
     flex-direction: column;
@@ -2394,11 +2398,7 @@ textarea:focus {
     margin: 0;
   }
 }
-*/
-*/
 
-/* Móviles - Layout completamente vertical */
-/* COMENTADO: Conflicto con mobile.css - mobile.css maneja estos estilos
 @media (max-width: 480px) {
   .content-wrapper {
     flex-direction: column;
@@ -2422,7 +2422,6 @@ textarea:focus {
     order: 1;
   }
   
-  /* Reducción progresiva para móviles */
   .category-grid, .product-grid {
     grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 40vw, 150px), 1fr));
     gap: var(--gap-small);

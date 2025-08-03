@@ -38,6 +38,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
+    position: relative !important;
     transition: width 0.3s ease;
   }
   
@@ -54,9 +55,9 @@
     position: relative !important;
   }
   
-  /* Sidebar fijo en el lado derecho - comportamiento de escritorio */
+  /* Sidebar que se mueve con scroll en el lado derecho - comportamiento de escritorio */
   #order-sidebar {
-    position: fixed !important;
+    position: absolute !important;
     top: 0 !important;
     right: 0 !important;
     width: var(--mobile-sidebar-width) !important;
