@@ -2399,6 +2399,7 @@ textarea:focus {
   }
 }
 
+/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
 @media (max-width: 480px) {
   .content-wrapper {
     flex-direction: column;
@@ -2441,6 +2442,7 @@ textarea:focus {
     font-size: clamp(0.6rem, 2vw, 0.75rem);
   }
 }
+*/
 */
   
   .order-item-name {
