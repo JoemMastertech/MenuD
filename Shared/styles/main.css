@@ -1847,8 +1847,7 @@ textarea:focus {
     margin-left: 5%;
   }
   
-  /* COMENTADO: ORDER SIDEBAR - MOBILE RESPONSIVE - Manejado por mobile.css */
-  /*
+  /* ORDER SIDEBAR - MOBILE RESPONSIVE BASE (can be overridden by mobile.css) */
   #order-sidebar { 
     position: relative;
     top: auto;
@@ -1869,7 +1868,6 @@ textarea:focus {
     font-size: 1.3rem;
     margin-bottom: 12px;
   }
-  */
   .order-item {
     padding: 8px 0;
     margin-bottom: 8px;
@@ -2023,8 +2021,7 @@ textarea:focus {
     margin-left: auto;
   }
   
-  /* COMENTADO: ORDER SIDEBAR - MOBILE RESPONSIVE - Manejado por mobile.css */
-  /*
+  /* ORDER SIDEBAR - MOBILE RESPONSIVE BASE (can be overridden by mobile.css) */
   #order-sidebar {
     width: 100%;
     position: relative;
@@ -2040,7 +2037,6 @@ textarea:focus {
     font-size: 1.2rem;
     margin-bottom: 10px;
   }
-  */
   .order-item {
     padding: 6px 0;
     margin-bottom: 6px;
@@ -2372,9 +2368,8 @@ textarea:focus {
   }
 }
 
-/* COMENTADO: Reglas conflictivas con mobile.css - mobile.css maneja estos estilos */
-/*
-@media (max-width: 768px) {
+/* Tablet responsive styles - Base behavior for tablets */
+@media (max-width: 768px) and (min-width: 481px) {
   .content-wrapper {
     flex-direction: column;
     gap: var(--gap-medium);
@@ -2399,7 +2394,7 @@ textarea:focus {
   }
 }
 
-/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
+/* Mobile base styles - Default mobile behavior (overridden by mobile.css for specific orientations) */
 @media (max-width: 480px) {
   .content-wrapper {
     flex-direction: column;
@@ -2408,12 +2403,12 @@ textarea:focus {
   }
   
   #order-sidebar {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: var(--gap-medium) 0 0 0 !important;
-    top: auto !important;
-    right: auto !important;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: var(--gap-medium) 0 0 0;
+    top: auto;
+    right: auto;
     max-height: 50vh;
     order: 2;
   }
@@ -2442,8 +2437,6 @@ textarea:focus {
     font-size: clamp(0.6rem, 2vw, 0.75rem);
   }
 }
-*/
-*/
   
   .order-item-name {
     font-size: 1rem;
