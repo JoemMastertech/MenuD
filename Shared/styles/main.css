@@ -2217,22 +2217,8 @@ textarea:focus {
 }
 
 /* =================================================================
-   RESPONSIVE DESIGN - MOBILE LANDSCAPE (max-width: 480px)
+   NOTA: Los estilos móviles (max-width: 480px) están en responsive.css
    ================================================================= */
-/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
-@media (max-width: 480px) and (orientation: landscape) {
-  // Estilos movidos a mobile.css para evitar conflictos
-}
-*/
-
-/* =================================================================
-   RESPONSIVE DESIGN - MOBILE PORTRAIT (max-width: 480px)
-   ================================================================= */
-/* COMENTADO: Conflicto con mobile.css - Los estilos móviles ahora están en mobile.css
-@media (max-width: 480px) and (orientation: portrait) {
-  // Estilos movidos a mobile.css para evitar conflictos
-}
-*/
 
 /* =================================================================
    RESPONSIVE DESIGN - LANDSCAPE TABLETS (768px - 1024px)
@@ -2504,8 +2490,8 @@ textarea:focus {
   .product-card .product-ingredients {
     font-size: 0.9rem;
   }
-}
 
+  
 .password-input {
   width: 100%;
   background: rgba(255, 255, 255, 0.1);
