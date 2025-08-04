@@ -60,6 +60,11 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
   color: var(--text-color);
   text-align: center;
   animation: fadeIn 1s ease-in-out;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .welcome-text { font-size: 3rem; }
@@ -69,7 +74,10 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 20px;
+  width: 100%;
+  text-align: center;
 }
 
 .logo {
