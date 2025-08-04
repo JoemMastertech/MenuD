@@ -17,6 +17,10 @@ class StateManager {
             minHeight: 'auto'
         };
         
+        // Control de transiciones
+        this.sidebarTransitioning = false;
+        this.layoutTransitioning = false;
+        
         this.init();
     }
 
@@ -113,11 +117,20 @@ class StateManager {
         }
     }
 
-    // Toggle sidebar
+    // Toggle sidebar con debounce para evitar transiciones superpuestas
     toggleSidebar() {
+        if (this.sidebarTransitioning) return; // Prevenir múltiples toggles
+        
+        this.sidebarTransitioning = true;
         const currentState = this.getState('sidebar');
         const newState = currentState === 'visible' ? 'hidden' : 'visible';
+        
         this.setSidebarState(newState);
+        
+        // Liberar después de la transición
+        setTimeout(() => {
+            this.sidebarTransitioning = false;
+        }, 300); // Duración de la transición
     }
 
     // Utilidad: camelCase a kebab-case
