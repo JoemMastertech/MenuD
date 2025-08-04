@@ -1,650 +1,163 @@
 /* =================================================================
-   SISTEMA MÓVIL INDEPENDIENTE - COCTELERÍA
+   MOBILE.CSS - VERSIÓN 2.0 - SIN !IMPORTANT
    ================================================================= */
 
-/* Variables específicas para móviles */
+/* Variables móviles específicas */
+/* Objetivo: 0 declaraciones !important */
 :root {
-  --mobile-sidebar-width: 140px;
-  --mobile-padding: 8px;
-  --mobile-gap: 8px;
-  --mobile-font-base: 0.8rem;
-  --mobile-font-small: 0.7rem;
-  --mobile-font-tiny: 0.6rem;
+  --mobile-padding: 10px;
+  --mobile-margin: 5px;
+  --mobile-font-size: 14px;
+  --mobile-line-height: 1.4;
+  --mobile-border-radius: 8px;
+  --mobile-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --mobile-transition: all 0.3s ease;
+  --mobile-max-width: 100%;
+  --mobile-min-height: 44px; /* Touch target */
+  --mobile-spacing: 8px;
 }
 
 /* =================================================================
-   MÓVIL LANDSCAPE - COMPORTAMIENTO DE ESCRITORIO
+   LAYOUT PRINCIPAL MÓVIL - ESPECIFICIDAD NATURAL
    ================================================================= */
-@media (max-width: 480px) and (orientation: landscape) {
-  /* Reset del layout para landscape */
-  #app {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    overflow: hidden !important;
-  }
-  
-  /* Contenedor principal para landscape - sin sidebar por defecto */
-  .content-wrapper {
-    display: flex !important;
-    flex-direction: row !important;
-    width: 95vw !important;
-    max-width: 95vw !important;
-    height: 100vh !important;
-    margin: 0 auto !important;
-    margin-left: 2.5vw !important;
-    padding: 0 !important;
-    overflow-y: auto;
+
+@media screen and (max-width: 768px) {
+  /* Layout usando data-attributes */
+  body[data-layout="flex"] #app {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+  }
+  
+  body[data-layout="flex"] .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    margin: 0 auto;
+    padding: var(--mobile-padding);
     box-sizing: border-box;
-    transition: width 0.3s ease;
   }
   
-  /* Contenedor principal cuando hay sidebar activo */
-  .content-wrapper.with-sidebar {
-    width: calc(95vw - var(--mobile-sidebar-width)) !important;
-    margin-left: 2.5vw !important;
-  }
-  
-  /* Resetear contenedor flex para móvil landscape */
-  .content-container-flex {
-    display: flex !important;
-    width: 100% !important;
-    position: relative !important;
-  }
-  
-  /* Sidebar fijo en el lado derecho - comportamiento de escritorio */
-  #order-sidebar {
-    position: fixed !important;
-    top: 0 !important;
-    right: 0 !important;
-    width: var(--mobile-sidebar-width) !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    margin: 0 !important;
-    padding: 12px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 0 !important;
-    z-index: 1000;
-    box-sizing: border-box;
-    background: var(--card-bg);
-    border-left: 2px solid var(--border-color);
-    transform: translateX(100%);
+  /* Sidebar móvil */
+  body[data-sidebar="hidden"] .sidebar {
+    transform: translateX(-100%);
     transition: transform 0.3s ease;
   }
   
-  /* Sidebar visible cuando está activo */
-  #order-sidebar.active {
+  body[data-sidebar="visible"] .sidebar {
     transform: translateX(0);
-  }
-  
-  /* Botón hamburguesa fijo en landscape - estilo escritorio */
-  .hamburger-btn,
-  .back-btn {
-    position: fixed !important;
-    top: 20px !important;
-    width: 50px !important;
-    height: 50px !important;
-    background: var(--card-bg) !important;
-    border: 2px solid var(--primary-color) !important;
-    color: var(--text-color) !important;
-    font-size: 1.5rem !important;
-    z-index: 1001 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 8px !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-  }
-  
-  .hamburger-btn {
-    left: 20px !important;
-  }
-  
-  .back-btn {
-    right: 20px !important;
-  }
-  
-  .hamburger-btn:hover,
-  .back-btn:hover {
-    background-color: var(--primary-color) !important;
-    color: var(--background-color) !important;
-  }
-  
-  /* Modo tabla - comportamiento de escritorio */
-  .product-table,
-  .liquor-table {
-    width: 100% !important;
-    font-size: inherit !important;
-  }
-  
-  /* Contenido del sidebar optimizado */
-  #order-sidebar h3 {
-    font-size: var(--mobile-font-base) !important;
-    margin-bottom: 6px !important;
-    text-align: center;
-    padding: 0;
-  }
-  
-  .order-item {
-    padding: 3px 0 !important;
-    margin-bottom: 3px !important;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  
-  .order-item-name {
-    font-size: var(--mobile-font-small) !important;
-    line-height: 1.1 !important;
-    margin-bottom: 2px;
-  }
-  
-  .order-item-price {
-    font-size: var(--mobile-font-tiny) !important;
-    color: var(--primary-color);
-  }
-  
-  .order-item-customization {
-    font-size: var(--mobile-font-tiny) !important;
-    margin-top: 1px !important;
-    opacity: 0.8;
-  }
-  
-  .order-total {
-    margin-top: 8px !important;
-    font-size: var(--mobile-font-base) !important;
-    font-weight: bold;
-    text-align: center;
-    padding: 4px 0;
-    border-top: 2px solid var(--primary-color);
-  }
-  
-  .order-buttons {
-    margin-top: 6px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  .order-buttons button {
-    font-size: var(--mobile-font-tiny) !important;
-    padding: 4px 6px !important;
-    margin: 0 !important;
-    width: 100%;
-    border-radius: 4px;
-  }
-  
-  /* Contenido principal optimizado */
-  #content-container {
-    padding: var(--mobile-padding) !important;
-    width: 100% !important;
-    height: 100% !important;
-    box-sizing: border-box;
-  }
-  
-  /* Grids optimizados - 3 columnas por defecto, 2 con sidebar */
-  .product-grid,
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: var(--mobile-gap) !important;
-    padding: var(--mobile-gap) !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-  }
-  
-  /* Grids con sidebar activo - 2 columnas */
-  .content-wrapper.with-sidebar .product-grid,
-  .content-wrapper.with-sidebar .category-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  
-  /* Tarjetas de producto optimizadas con espaciado reducido */
-  .product-card {
-    min-height: 200px !important;
-    padding: 6px !important;
-  }
-
-  .product-card .product-name {
-    font-size: var(--mobile-font-small) !important;
-    line-height: 1.2 !important;
-    margin-bottom: 2px !important;
-  }
-
-  .product-card .product-media {
-    margin-bottom: 4px !important;
-  }
-
-  .product-card .product-ingredients {
-    font-size: var(--mobile-font-tiny) !important;
-  }
-
-  /* Precios con espaciado reducido en landscape */
-  .product-card.liquor-card .product-prices {
-    gap: 1px !important;
-    margin-top: 2px !important;
-  }
-  
-  .product-card .price-button {
-    font-size: var(--mobile-font-tiny) !important;
-    padding: 4px 6px !important;
-  }
-  
-  /* Tablas optimizadas con reducción del 10% y ajuste hacia la izquierda */
-  .product-table,
-  .liquor-table {
-    width: 90% !important;
-    max-width: 90% !important;
-    margin: 0 !important;
-    margin-left: 5% !important;
-    padding: var(--mobile-gap) !important;
-  }
-  
-  .product-table th,
-  .product-table td {
-    padding: 4px 2px !important;
-    font-size: var(--mobile-font-small) !important;
-  }
-  
-  /* Navegación optimizada */
-  .nav-row {
-    flex-wrap: wrap;
-    gap: 4px;
-    padding: var(--mobile-padding);
-  }
-  
-  .nav-button {
-    font-size: var(--mobile-font-small) !important;
-    padding: 6px 8px !important;
-    flex: 1;
-    min-width: 80px;
-  }
-}
-
-/* =================================================================
-   MÓVIL PORTRAIT - SIDEBAR INFERIOR
-   ================================================================= */
-@media (max-width: 480px) and (orientation: portrait) {
-  /* Reset del layout para portrait */
-  #app {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100vw !important;
-    min-height: 100vh !important;
-  }
-  
-  /* Contenedor principal para portrait - sin sidebar lateral */
-  .content-wrapper {
-    width: 95vw !important;
-    max-width: 95vw !important;
-    min-height: 100vh !important;
-    margin: 0 !important;
-    margin-left: 2.5vw !important;
-    padding: 0 !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-  }
-  
-  /* Reducir espaciado entre nombre e imagen en tarjetas de productos */
-  .product-card .product-name {
-    margin-bottom: 2px !important;
-  }
-
-  .product-card .product-media {
-    margin-bottom: 4px !important;
-  }
-
-  /* Hacer precios más responsive y reducir espaciado con imagen */
-  .product-card.liquor-card .product-prices {
-    gap: 1px !important;
-    margin-top: 2px !important;
-  }
-  
-  .product-card.liquor-card .price-button {
-    font-size: 0.6rem !important;
-    padding: 2px 4px !important;
-    min-width: 35px !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-  
-  .product-card.liquor-card .price-label {
-    font-size: 0.5rem !important;
-    min-width: 25px !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-  
-  /* Resetear contenedor flex para móvil portrait */
-  .content-container-flex {
-    display: block !important;
-    width: 100% !important;
-    position: relative !important;
-    padding-bottom: 200px !important; /* Espacio para el sidebar inferior */
-  }
-  
-  #content-container {
-    padding: var(--mobile-padding) !important;
-    width: 100% !important;
-    box-sizing: border-box;
-  }
-  
-  /* Grids para portrait - 2 columnas con ancho normal */
-  .product-grid,
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: var(--mobile-gap) !important;
-    padding: var(--mobile-padding) !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    box-sizing: border-box;
-  }
-  
-  /* Tarjetas optimizadas para portrait */
-  .product-card {
-    min-height: 240px !important;
-    padding: 8px !important;
-  }
-  
-  .product-card .product-name {
-    font-size: var(--mobile-font-base) !important;
-    line-height: 1.3 !important;
-  }
-  
-  .product-card .product-ingredients {
-    font-size: var(--mobile-font-small) !important;
-  }
-  
-  /* Tablas para portrait con reducción del 10% y ajuste hacia la izquierda */
-  .product-table,
-  .liquor-table {
-    width: 90% !important;
-    max-width: 90% !important;
-    margin: 0 !important;
-    margin-left: 5% !important;
-    padding: var(--mobile-padding) !important;
-  }
-  
-  .product-table th,
-  .product-table td {
-    padding: 6px 4px !important;
-    font-size: var(--mobile-font-base) !important;
-  }
-  
-  /* Botones de navegación superpuestos - apariencia como desktop */
-  .hamburger-btn,
-  .back-button-container {
-    position: fixed !important;
-    z-index: 1001 !important;
-  }
-  
-  .hamburger-btn {
-    left: var(--mobile-padding) !important;
-    top: var(--mobile-padding) !important;
-    background: var(--card-bg) !important;
-    border: 2px solid var(--primary-color) !important;
-    color: var(--text-color) !important;
-    font-size: 1.2rem !important;
-    width: 45px !important;
-    height: 45px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    cursor: pointer;
-    transition: all var(--transition-time) ease;
-    border-radius: 8px !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-  }
-  
-  .hamburger-btn:hover {
-    background-color: var(--primary-color);
-    color: var(--background-color);
-  }
-  
-  .back-button-container {
-    left: var(--mobile-padding) !important;
-    top: 50px !important;
-  }
-  
-  /* Botones hamburguesa y back como overlays fijos */
-  .hamburger-btn,
-  .back-btn {
-    position: fixed !important;
-    top: 20px !important;
-    width: 50px !important;
-    height: 50px !important;
-    border-radius: 50% !important;
-    background: var(--primary-color) !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-    z-index: 1001 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 18px !important;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .hamburger-btn {
-    left: 20px !important;
-  }
-  
-  .back-btn {
-    right: 20px !important;
-  }
-  
-  .hamburger-btn:hover,
-  .back-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-  }
-  
-  /* Sidebar fijo en la parte inferior para portrait - oculto por defecto */
-  #order-sidebar {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100vw !important;
-    height: auto !important;
-    max-height: 180px !important;
-    margin: 0 !important;
-    padding: 12px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 15px 15px 0 0 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
     z-index: 1000;
-    box-sizing: border-box;
-    background: var(--card-bg);
-    border-top: 2px solid var(--border-color);
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-    transform: translateY(100%) !important;
-    transition: transform 0.3s ease !important;
-  }
-  
-  /* Mostrar sidebar solo cuando tenga contenido */
-  #order-sidebar.has-items {
-    transform: translateY(0) !important;
-  }
-  
-  /* Logo reducido en móviles portrait */
-  .logo,
-  .main-logo {
-    max-width: 210px !important; /* 30% menos que 300px */
-  }
-  
-  #order-sidebar h3 {
-    font-size: var(--mobile-font-base) !important;
-    margin-bottom: 8px !important;
-    text-align: center;
-    padding: 0;
-  }
-  
-  .order-item {
-    padding: 4px 8px !important;
-    margin-bottom: 4px !important;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .order-item-name {
-    font-size: var(--mobile-font-small) !important;
-    line-height: 1.2 !important;
-    margin-bottom: 0;
-    flex: 1;
-  }
-  
-  .order-item-price {
-    font-size: var(--mobile-font-small) !important;
-    color: var(--primary-color);
-    font-weight: bold;
-    margin-left: 8px;
-  }
-  
-  .order-item-customization {
-    font-size: var(--mobile-font-tiny) !important;
-    margin-top: 2px !important;
-    opacity: 0.8;
-    width: 100%;
-  }
-  
-  .order-total {
-    margin-top: 8px !important;
-    font-size: var(--mobile-font-base) !important;
-    font-weight: bold;
-    text-align: center;
-    padding: 8px 0;
-    border-top: 2px solid var(--primary-color);
-  }
-  
-  .order-buttons {
-    margin-top: 8px !important;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    justify-content: center;
-  }
-  
-  .order-buttons button {
-    font-size: var(--mobile-font-small) !important;
-    padding: 8px 16px !important;
-    margin: 0 !important;
-    flex: 1;
-    max-width: 120px;
-    border-radius: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  /* Navegación optimizada para portrait */
-  .nav-row {
-    flex-direction: column;
-    gap: 6px;
-    padding: var(--mobile-padding);
-  }
-  
-  .nav-button {
-    font-size: var(--mobile-font-base) !important;
-    padding: 10px 12px !important;
-    width: 100%;
+    background: var(--background-color);
+    box-shadow: var(--mobile-shadow);
   }
 }
 
 /* =================================================================
-   OPTIMIZACIONES GENERALES MÓVILES
+   LANDSCAPE ORIENTATION - DISPOSITIVOS MÓVILES
    ================================================================= */
-@media (max-width: 480px) {
-  /* Tipografía base */
-  body {
-    font-size: var(--mobile-font-base) !important;
+
+@media screen and (max-width: 480px) and (orientation: landscape) {
+  body[data-layout="flex"] #app {
+    height: 100vh;
+    overflow-y: auto;
   }
   
-  /* Títulos optimizados */
-  .welcome-text,
-  .title-text,
-  .category-title {
-    font-size: 1.6rem !important;
+  body[data-layout="flex"] .content-wrapper {
+    min-height: 100vh;
+    padding: calc(var(--mobile-padding) / 2);
+  }
+}
+
+/* =================================================================
+   COMPONENTES MÓVILES - SIN !IMPORTANT
+   ================================================================= */
+
+@media screen and (max-width: 768px) {
+  /* Navegación móvil */
+  .mobile-nav {
+    display: block;
+    width: 100%;
+    background: var(--primary-color);
+    padding: var(--mobile-padding);
+    border-radius: var(--mobile-border-radius);
+  }
+  
+  /* Botones móviles */
+  .mobile-button {
+    min-height: var(--mobile-min-height);
+    padding: var(--mobile-padding);
+    font-size: var(--mobile-font-size);
+    border-radius: var(--mobile-border-radius);
+    transition: var(--mobile-transition);
+    width: 100%;
     text-align: center;
-    margin: 10px 0;
   }
   
-  /* Modo tabla mínimo óptimo por defecto */
-  .product-table,
-  .liquor-table {
-    width: 100% !important;
-    font-size: var(--mobile-font-small) !important;
-    transform: scale(0.85) !important;
-    transform-origin: top left !important;
-    margin-bottom: 20px !important;
+  /* Formularios móviles */
+  .mobile-form {
+    width: 100%;
+    padding: var(--mobile-padding);
+    margin: var(--mobile-margin);
   }
   
-  .product-table th,
-  .product-table td,
-  .liquor-table th,
-  .liquor-table td {
-    padding: 4px 2px !important;
-    font-size: var(--mobile-font-tiny) !important;
-    line-height: 1.2 !important;
+  .mobile-input {
+    width: 100%;
+    min-height: var(--mobile-min-height);
+    padding: var(--mobile-padding);
+    font-size: var(--mobile-font-size);
+    border-radius: var(--mobile-border-radius);
+    box-sizing: border-box;
   }
   
-  /* Modales optimizados */
-  .modal {
-    padding: 5px !important;
+  /* Imágenes responsivas */
+  body[data-image-size="small"] .product-image {
+    width: 35px;
+    height: 35px;
   }
   
-  .modal-content {
-    width: 95% !important;
-    max-width: 400px !important;
-    padding: 12px !important;
-    border-radius: 10px !important;
+  body[data-image-size="large"] .product-image {
+    width: 60px;
+    height: 60px;
   }
   
-  /* Botones generales */
-  button {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Scroll suave */
-  * {
+  /* Tablas móviles */
+  .table-responsive {
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
   
-  /* Prevenir zoom en inputs */
-  input, select, textarea {
-    font-size: 16px !important;
+  .table-responsive table {
+    min-width: 600px;
+  }
+  
+  /* Modales móviles */
+  .modal {
+    width: 95vw;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: var(--mobile-padding);
   }
 }
 
 /* =================================================================
-   TRANSICIONES Y ANIMACIONES MÓVILES
+   REGLAS DE IMPLEMENTACIÓN
    ================================================================= */
-@media (max-width: 480px) {
-  /* Transiciones rápidas para móviles */
-  #order-sidebar,
-  .product-card,
-  .nav-button,
-  button {
-    transition: all 0.2s ease !important;
-  }
-  
-  /* Hover states para touch */
-  .product-card:active,
-  .nav-button:active,
-  button:active {
-    transform: scale(0.98);
-    opacity: 0.8;
-  }
-}
+
+/*
+REGLAS ESTRICTAS:
+1. NUNCA usar !important
+2. Usar especificidad natural
+3. Usar data-attributes para estados
+4. Seguir mobile-first approach
+5. Mantener performance óptimo
+6. Integración con StateManager.js
+*/

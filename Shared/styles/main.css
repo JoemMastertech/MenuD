@@ -2495,23 +2495,23 @@ textarea:focus {
    INLINE STYLE REFACTORING - UTILITY CLASSES
    ================================================================= */
 
-/* Screen display utilities */
-.screen-hidden {
-  display: none !important;
+/* Screen display utilities - Especificidad natural */
+body[data-screen="hidden"] .screen-element {
+  display: none;
 }
 
-.screen-visible {
-  display: flex !important;
+body[data-screen="visible"] .screen-element {
+  display: flex;
   opacity: 1;
   visibility: visible;
 }
 
-.screen-flex {
-  display: flex !important;
+body[data-layout="flex"] .screen-element {
+  display: flex;
 }
 
-.screen-block {
-  display: block !important;
+body[data-layout="block"] .screen-element {
+  display: block;
 }
 
 /* Hamburger menu visibility */
@@ -2523,13 +2523,13 @@ textarea:focus {
   display: block;
 }
 
-/* Sidebar and container display states */
-.sidebar-hidden {
-  display: none !important;
+/* Sidebar and container display states - Especificidad natural */
+body[data-sidebar="hidden"] .sidebar {
+  display: none;
 }
 
-.sidebar-visible {
-  display: block !important;
+body[data-sidebar="visible"] .sidebar {
+  display: block;
 }
 
 .content-hidden {
@@ -2607,24 +2607,24 @@ textarea:focus {
   left: auto;
 }
 
-/* Product image size utilities */
-.product-image-small {
-  width: 40px !important;
-  height: 40px !important;
+/* Product image size utilities - Especificidad natural */
+body[data-image-size="small"] .product-image {
+  width: 40px;
+  height: 40px;
 }
 
-.product-image-large {
-  width: 70px !important;
-  height: 70px !important;
+body[data-image-size="large"] .product-image {
+  width: 70px;
+  height: 70px;
 }
 
-/* Height and min-height utilities */
-.height-auto {
-  height: auto !important;
+/* Height and min-height utilities - Especificidad natural */
+body[data-height="auto"] .height-element {
+  height: auto;
 }
 
-.min-height-auto {
-  min-height: auto !important;
+body[data-min-height="auto"] .min-height-element {
+  min-height: auto;
 }
 
 /* Modal subtitle styling */
