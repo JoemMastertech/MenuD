@@ -68,6 +68,16 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 .welcome-text { font-size: 3rem; }
 .title-text, .category-title { font-size: 2.5rem; }
 
+/* Específico para centrado perfecto de category-title */
+.category-title {
+  display: block;
+  width: 100%;
+  height: auto;
+  line-height: 1.2;
+  margin: 0 auto;
+  padding: 0;
+}
+
 .logo-container {
   display: flex;
   flex-direction: column;
