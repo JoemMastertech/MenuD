@@ -83,9 +83,14 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
   text-align: center;
 }
 
+.logo-container .title-text {
+  height: auto;
+}
+
 .logo {
   max-width: 300px;
   height: auto;
+  margin: 0;
   animation: fadeIn 1s ease-in-out;
   transition: all var(--transition-time) ease;
 }
