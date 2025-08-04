@@ -70,11 +70,13 @@ body { font-family: 'Montserrat', sans-serif; color: var(--text); background: va
 
 /* Específico para centrado perfecto de category-title */
 .category-title {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: auto;
+  height: 100%;
   line-height: 1.2;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
 }
 
