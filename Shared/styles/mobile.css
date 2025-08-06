@@ -42,33 +42,25 @@
     box-sizing: border-box;
   }
   
-  /* Sidebar móvil - Separado del drawer-menu */
+  /* Sidebar móvil - Transición unificada */
   .sidebar {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease;
     position: fixed;
     top: 0;
     left: 0;
     width: 280px;
     height: 100vh;
-    z-index: 1001; /* Mayor que drawer-menu */
+    z-index: 1000;
     background: var(--background-color);
     box-shadow: var(--mobile-shadow);
-    will-change: transform; /* Optimización GPU */
   }
   
   body[data-sidebar="hidden"] .sidebar {
-    transform: translate3d(-100%, 0, 0); /* GPU optimized */
+    transform: translateX(-100%);
   }
   
   body[data-sidebar="visible"] .sidebar {
-    transform: translate3d(0, 0, 0); /* GPU optimized */
-  }
-  
-  /* Prevenir conflictos con drawer-menu */
-  @media screen and (max-width: 768px) {
-    .drawer-menu {
-      z-index: 999; /* Menor que sidebar */
-    }
+    transform: translateX(0);
   }
 }
 

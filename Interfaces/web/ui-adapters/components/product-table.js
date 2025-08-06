@@ -126,9 +126,11 @@ const ProductRenderer = {
     // Initialize event delegation if not already done
     this.initEventDelegation();
     
-    const toggleContainer = this._createElement('div', 'view-toggle-container');
+    const toggleContainer = document.createElement('div');
+    toggleContainer.className = 'view-toggle-container';
     
-    const toggleBtn = this._createElement('button', 'view-toggle-btn');
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'view-toggle-btn';
     toggleBtn.textContent = this.currentViewMode === 'table' ? '🔲' : '📋';
     toggleBtn.classList.toggle('active', this.currentViewMode === 'grid');
     
@@ -169,7 +171,7 @@ const ProductRenderer = {
       // Find the content-container-flex to maintain proper structure
       const flexContainer = document.querySelector('.content-container-flex');
       if (flexContainer) {
-        targetContainer = this._createElement('div');
+        targetContainer = document.createElement('div');
         targetContainer.id = 'content-container';
         // Insert before the sidebar to maintain proper order
         const existingSidebar = flexContainer.querySelector('#order-sidebar');
@@ -180,7 +182,7 @@ const ProductRenderer = {
         }
       } else {
         // Fallback: create in the provided container
-        targetContainer = this._createElement('div');
+        targetContainer = document.createElement('div');
         targetContainer.id = 'content-container';
         container.appendChild(targetContainer);
       }
@@ -197,7 +199,7 @@ const ProductRenderer = {
   },
 
   _restoreBackButton: function(container, backButtonHTML) {
-    const tempDiv = this._createElement('div');
+    const tempDiv = document.createElement('div');
     tempDiv.innerHTML = backButtonHTML;
     const restoredBackButton = tempDiv.firstChild;
     
@@ -339,7 +341,7 @@ const ProductRenderer = {
         let container = wrapper.querySelector('#content-container');
         if (!container) {
           Logger.warn('⚠️ Content container no encontrado, creando uno nuevo');
-          container = this._createElement('div');
+          container = document.createElement('div');
           container.id = 'content-container';
           const flexContainer = wrapper.querySelector('.content-container-flex');
           if (flexContainer) {
@@ -426,7 +428,7 @@ const ProductRenderer = {
   },
 
   _createTableElement: function(tableClass, categoryTitle) {
-    const table = this._createElement('table');
+    const table = document.createElement('table');
     table.className = tableClass;
     
     const normalizedCategory = this._normalizeCategory(categoryTitle);
@@ -460,11 +462,11 @@ const ProductRenderer = {
   },
 
   _createTitleRow: function(categoryTitle, headerLength) {
-    const titleRow = this._createElement('tr');
+    const titleRow = document.createElement('tr');
     titleRow.className = 'title-row';
-    const titleCell = this._createElement('td');
+    const titleCell = document.createElement('td');
     titleCell.colSpan = headerLength;
-    const titleElement = this._createElement('h2');
+    const titleElement = document.createElement('h2');
     titleElement.className = 'page-title';
     titleElement.textContent = categoryTitle;
     titleCell.appendChild(titleElement);
@@ -473,14 +475,14 @@ const ProductRenderer = {
   },
 
   _createTableHeader: function(headers, titleRow) {
-    const tableHead = this._createElement('thead');
+    const tableHead = document.createElement('thead');
     tableHead.appendChild(titleRow);
     
-    const headerRow = this._createElement('tr');
+    const headerRow = document.createElement('tr');
     headerRow.setAttribute('data-nombre-column', 'true');
     
     headers.forEach(header => {
-      const th = this._createElement('th');
+      const th = document.createElement('th');
       th.textContent = header;
       if (header === 'NOMBRE') {
         th.setAttribute('data-nombre-header', 'true');
@@ -493,7 +495,7 @@ const ProductRenderer = {
   },
 
   _createTableBody: function(data, fields, categoryTitle) {
-    const tbody = this._createElement('tbody');
+    const tbody = document.createElement('tbody');
     
     data.forEach(item => {
       const row = this._createTableRow(item, fields, categoryTitle);
@@ -504,7 +506,7 @@ const ProductRenderer = {
   },
 
   _createTableRow: function(item, fields, categoryTitle) {
-    const row = this._createElement('tr');
+    const row = document.createElement('tr');
     
     fields.forEach(field => {
       const td = this._createTableCell(item, field, categoryTitle);
@@ -515,7 +517,7 @@ const ProductRenderer = {
   },
 
   _createTableCell: function(item, field, categoryTitle) {
-    const td = this._createElement('td');
+    const td = document.createElement('td');
     
     if (field === 'nombre') {
       this._createNameCell(td, item[field]);
@@ -550,7 +552,7 @@ const ProductRenderer = {
 
   _createPriceCell: function(td, item, field) {
     td.className = 'product-price';
-    const priceButton = this._createElement('button');
+    const priceButton = document.createElement('button');
     
     const priceValue = item[field];
     if (!priceValue || priceValue === '--') {
@@ -571,7 +573,7 @@ const ProductRenderer = {
     td.className = 'video-icon';
     if (item.video) {
       const thumbnailUrl = this.getThumbnailUrl(item.video, item.nombre, '');
-      const thumbnailImg = this._createElement('img');
+      const thumbnailImg = document.createElement('img');
       thumbnailImg.className = 'video-thumb';
       thumbnailImg.src = thumbnailUrl;
       thumbnailImg.alt = `Ver video de ${item.nombre}`;
@@ -586,7 +588,7 @@ const ProductRenderer = {
   _createImageCell: function(td, item, field, categoryTitle) {
     td.className = 'image-icon';
     if (item[field]) {
-      const img = this._createElement('img');
+      const img = document.createElement('img');
       img.src = item[field];
       img.alt = item.nombre;
       
@@ -613,7 +615,7 @@ const ProductRenderer = {
   
   // Create product grid view
   createProductGrid: function(container, data, fields, categoryTitle) {
-    const grid = this._createElement('div');
+    const grid = document.createElement('div');
     grid.className = 'product-grid';
     
     // Normalize categoryTitle for data-attribute
@@ -638,36 +640,36 @@ const ProductRenderer = {
     grid.dataset.productType = productType;
     
     // Add title
-    const titleElement = this._createElement('h2');
+    const titleElement = document.createElement('h2');
     titleElement.className = 'page-title';
     titleElement.textContent = categoryTitle;
     grid.appendChild(titleElement);
     
     // Create product cards
     data.forEach(item => {
-      const card = this._createElement('div');
+      const card = document.createElement('div');
       card.className = 'product-card';
       
       // Product name
-      const nameElement = this._createElement('div');
+      const nameElement = document.createElement('div');
       nameElement.className = 'product-name';
       nameElement.textContent = item.nombre;
       card.appendChild(nameElement);
       
       // Product ingredients (if available)
       if (item.ingredientes) {
-        const ingredientsElement = this._createElement('div');
+        const ingredientsElement = document.createElement('div');
         ingredientsElement.className = 'product-ingredients';
         ingredientsElement.textContent = item.ingredientes;
         card.appendChild(ingredientsElement);
       }
       
       // Media container (video or image)
-      const mediaContainer = this._createElement('div');
+      const mediaContainer = document.createElement('div');
       mediaContainer.className = 'product-media';
       
       if (item.video) {
-        const videoThumbnail = this._createElement('img');
+        const videoThumbnail = document.createElement('img');
         videoThumbnail.className = 'video-thumbnail';
         videoThumbnail.src = this.getThumbnailUrl(item.video);
         videoThumbnail.alt = `Video de ${item.nombre}`;
@@ -675,7 +677,7 @@ const ProductRenderer = {
         // No individual event listener - handled by delegation
         mediaContainer.appendChild(videoThumbnail);
       } else if (item.imagen || item.ruta_archivo) {
-        const image = this._createElement('img');
+        const image = document.createElement('img');
         image.className = 'product-image';
         image.src = item.imagen || item.ruta_archivo;
         image.alt = item.nombre;
@@ -686,7 +688,7 @@ const ProductRenderer = {
       card.appendChild(mediaContainer);
       
       // Prices container
-      const pricesContainer = this._createElement('div');
+      const pricesContainer = document.createElement('div');
       pricesContainer.className = 'product-prices';
       
       // Check if this is a liquor subcategory
@@ -713,17 +715,17 @@ const ProductRenderer = {
           if (priceValue && priceValue !== '--') {
             if (isLiquorCategory && priceLabels[field]) {
               // Create price item container for liquors
-              const priceItem = this._createElement('div');
+              const priceItem = document.createElement('div');
               priceItem.className = 'price-item';
               
               // Create price label
-              const priceLabel = this._createElement('span');
+              const priceLabel = document.createElement('span');
               priceLabel.className = 'price-label';
               priceLabel.textContent = priceLabels[field] + ':';
               priceItem.appendChild(priceLabel);
               
               // Create price button
-              const priceButton = this._createElement('button');
+              const priceButton = document.createElement('button');
               priceButton.className = 'price-button';
               priceButton.textContent = priceValue;
               priceButton.dataset.productName = item.nombre;
@@ -736,7 +738,7 @@ const ProductRenderer = {
               pricesContainer.appendChild(priceItem);
             } else {
               // Regular price button for non-liquor categories
-              const priceButton = this._createElement('button');
+              const priceButton = document.createElement('button');
               priceButton.className = 'price-button';
               priceButton.textContent = priceValue;
               priceButton.dataset.productName = item.nombre;
@@ -888,43 +890,25 @@ const ProductRenderer = {
     return `https://udtlqjmrtbcpdqknwuro.supabase.co/storage/v1/object/public/productos/imagenes/bebidas/mini-${extractedCategory}/${thumbnailFilename}.webp`;
   },
 
-  // Helper function to create DOM elements
-  _createElement: function(tag, className = '', textContent = '') {
-    const element = document.createElement(tag);
-    if (className) element.className = className;
-    if (textContent) element.textContent = textContent;
-    return element;
-  },
-
-  // Helper function to create modal structure
-  _createModalStructure: function(title, className = 'modal-content') {
-    const modalBackdrop = this._createElement('div', 'modal-backdrop');
-    const modalContent = this._createElement('div', className);
-    const modalTitle = this._createElement('h3', '', title);
-    
-    modalContent.appendChild(modalTitle);
-    modalBackdrop.appendChild(modalContent);
-    
-    return { modalBackdrop, modalContent, modalTitle };
-  },
-
-  // Helper function to create close button
-  _createCloseButton: function(modalId = '') {
-    const closeButton = this._createElement('button', 'nav-button modal-close-btn', 'Cerrar');
-    if (modalId) closeButton.dataset.modalId = modalId;
-    return closeButton;
-  },
-
   showVideoModal: function(videoUrl, title, category = null) {
-    // Create modal structure using helper
-    const { modalBackdrop, modalContent } = this._createModalStructure(title, 'modal-content image-modal video-modal');
+    // Create modal backdrop
+    const modalBackdrop = document.createElement('div');
+    modalBackdrop.className = 'modal-backdrop';
     
+    // Create modal content
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content image-modal video-modal';
     if (category) {
       modalContent.setAttribute('data-category', category);
     }
     
+    // Add title
+    const modalTitle = document.createElement('h3');
+    modalTitle.textContent = title;
+    modalContent.appendChild(modalTitle);
+    
     // Add video
-    const video = this._createElement('video');
+    const video = document.createElement('video');
     video.src = videoUrl;
     video.controls = true;
     video.autoplay = true;
@@ -934,7 +918,9 @@ const ProductRenderer = {
       logWarning('Video loading error', e, { videoUrl });
       video.className = 'video-hidden';
       
-      const errorMessage = this._createElement('p', 'error-message', 'Video no disponible en este momento');
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'Video no disponible en este momento';
+      errorMessage.className = 'error-message';
       modalContent.insertBefore(errorMessage, video.nextSibling);
     });
     
@@ -944,27 +930,44 @@ const ProductRenderer = {
     
     modalContent.appendChild(video);
     
-    // Add close button using helper
-    const closeButton = this._createCloseButton('video-modal');
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Cerrar';
+    closeButton.className = 'nav-button modal-close-btn';
+    closeButton.dataset.modalId = 'video-modal';
+    // No individual event listener - handled by delegation
     modalContent.appendChild(closeButton);
     
     // Add modal to body
     modalBackdrop.className += ' video-modal-backdrop';
+    modalBackdrop.appendChild(modalContent);
     document.body.appendChild(modalBackdrop);
   },
 
   showImageModal: function(imageUrl, title, category = null) {
-    // Create modal structure using helper
-    const { modalBackdrop, modalContent } = this._createModalStructure(title, 'modal-content image-modal');
+    // Create modal backdrop
+    const modalBackdrop = document.createElement('div');
+    modalBackdrop.className = 'modal-backdrop';
+    
+    // Create modal content
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content image-modal';
+    
+    // Add title
+    const modalTitle = document.createElement('h3');
+    modalTitle.textContent = title;
+    modalContent.appendChild(modalTitle);
     
     // Add image with standardized size
-    const image = this._createElement('img');
+    const image = document.createElement('img');
     image.src = imageUrl;
     image.alt = title;
     modalContent.appendChild(image);
     
-    // Add close button using helper
-    const closeButton = this._createCloseButton();
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Cerrar';
+    closeButton.className = 'nav-button modal-close-btn';
     closeButton.dataset.modalId = 'image-modal';
     // No individual event listener - handled by delegation
     modalContent.appendChild(closeButton);
@@ -986,7 +989,7 @@ const ProductRenderer = {
         // Create content-container within the flex structure
         const flexContainer = document.querySelector('.content-container-flex');
         if (flexContainer) {
-          targetContainer = this._createElement('div');
+          targetContainer = document.createElement('div');
           targetContainer.id = 'content-container';
           const existingSidebar = flexContainer.querySelector('#order-sidebar');
           if (existingSidebar) {
@@ -1082,7 +1085,7 @@ const ProductRenderer = {
       // Find the content-container-flex to maintain proper structure
       const flexContainer = document.querySelector('.content-container-flex');
       if (flexContainer) {
-        targetContainer = this._createElement('div');
+        targetContainer = document.createElement('div');
         targetContainer.id = 'content-container';
         // Insert before the sidebar to maintain proper order
         const existingSidebar = flexContainer.querySelector('#order-sidebar');
@@ -1099,11 +1102,11 @@ const ProductRenderer = {
     }
     
     // Back button container for positioning below hamburger
-    const backButtonContainer = this._createElement('div');
+    const backButtonContainer = document.createElement('div');
     backButtonContainer.className = 'back-button-container';
 
     // Back button with icon
-    const backButton = this._createElement('button');
+    const backButton = document.createElement('button');
     backButton.className = 'back-button';
     // Asignación segura: cadena estática (símbolo de flecha), sin riesgo XSS
     backButton.innerHTML = '←';

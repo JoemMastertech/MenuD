@@ -6,23 +6,21 @@ import { ErrorHandler, logError, logWarning, handleMissingElementError } from '.
 import { calculateTotalDrinkCount, calculateTotalJuiceCount, calculateTotalJagerDrinkCount, isJuiceOption } from './../../../../Shared/utils/calculationUtils.js';
 import Logger from './../../../../Shared/utils/logger.js';
 import { OrderSystemValidations } from './order-system-validations.js';
-import { BUSINESS_RULES, PRODUCT_CATEGORIES, ORDER_SYSTEM } from './../../../../Shared/config/constants.js';
 
-// Using centralized constants from constants.js
-// Legacy constants for backward compatibility - will be gradually migrated
+// Constants
 const CONSTANTS = {
-  MAX_DRINK_COUNT: BUSINESS_RULES.MAX_DRINK_COUNT,
-  MAX_JUICE_COUNT: BUSINESS_RULES.MAX_JUICE_COUNT,
+  MAX_DRINK_COUNT: 5,
+  MAX_JUICE_COUNT: 2,
   SPECIAL_PRODUCTS: {
     NO_MODAL: ['HIPNOTIQ', 'BAILEYS'],
     JAGER: 'JAGERMEISTER',
     SPECIAL_RON: ['BACARDI MANGO', 'BACARDI RASPBERRY', 'MALIBU']
   },
   CATEGORIES: {
-    FOOD: PRODUCT_CATEGORIES.FOOD,
-    MEAT: PRODUCT_CATEGORIES.MEAT,
-    DIGESTIVOS: PRODUCT_CATEGORIES.DIGESTIVOS,
-    ESPUMOSOS: PRODUCT_CATEGORIES.ESPUMOSOS
+    FOOD: ['pizzas', 'alitas', 'sopas', 'ensaladas'],
+    MEAT: 'carnes',
+    DIGESTIVOS: 'digestivos',
+    ESPUMOSOS: 'espumosos'
   },
   PRICE_TYPES: {
     BOTTLE: 'precioBotella',
@@ -418,16 +416,11 @@ class OrderSystem {
       sidebar.classList.toggle('sidebar-visible', shouldBeVisible);
       sidebar.classList.toggle('sidebar-hidden', !shouldBeVisible);
       
-      // Use centralized helper for content wrapper sidebar class
-      this._toggleContentWrapperSidebar(shouldBeVisible);
-    }
-  }
-
-  // Helper function to manage 'with-sidebar' class on content wrapper
-  _toggleContentWrapperSidebar(shouldBeVisible) {
-    const contentWrapper = document.querySelector('.content-wrapper');
-    if (contentWrapper) {
-      contentWrapper.classList.toggle('with-sidebar', shouldBeVisible);
+      // Add/remove 'with-sidebar' class to content wrapper for mobile landscape mode
+      const contentWrapper = document.querySelector('.content-wrapper');
+      if (contentWrapper) {
+        contentWrapper.classList.toggle('with-sidebar', shouldBeVisible);
+      }
     }
   }
 
@@ -531,10 +524,10 @@ class OrderSystem {
 
   _handleLiquorProduct(productName, price) {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for liquor handling');
+      console.error('No current product selected for liquor handling');
       // Try to reconstruct currentProduct from parameters
       this.currentProduct = { name: productName, price: price, priceType: 'precio' };
-      Logger.warn('Reconstructed currentProduct from parameters:', this.currentProduct);
+      console.warn('Reconstructed currentProduct from parameters:', this.currentProduct);
     }
     const isBottle = this.currentProduct.priceType === CONSTANTS.PRICE_TYPES.BOTTLE;
     const isSpecialCategory = [CONSTANTS.CATEGORIES.DIGESTIVOS, CONSTANTS.CATEGORIES.ESPUMOSOS].includes(this.currentCategory);
@@ -627,7 +620,7 @@ class OrderSystem {
   _continueShowDrinkOptionsModal() {
     const optionsContainer = this._initializeDrinkModal();
     if (!optionsContainer) {
-      Logger.error('Failed to initialize drink modal - no options container available');
+      console.error('Failed to initialize drink modal - no options container available');
       return;
     }
     
@@ -640,7 +633,7 @@ class OrderSystem {
 
   _initializeDrinkModal() {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for drink modal initialization');
+      console.error('No current product selected for drink modal initialization');
       return null;
     }
     const optionsContainer = document.getElementById('drink-options-container');
@@ -656,7 +649,7 @@ class OrderSystem {
 
   _setupJagermeisterOptions(optionsContainer) {
     if (!optionsContainer) {
-      Logger.error('No options container provided for Jagermeister options setup');
+      console.error('No options container provided for Jagermeister options setup');
       return;
     }
     this._createJagerMessage(optionsContainer);
@@ -679,11 +672,11 @@ class OrderSystem {
 
   _setupRegularDrinkOptions(optionsContainer) {
     if (!optionsContainer) {
-      Logger.error('No options container provided for regular drink options setup');
+      console.error('No options container provided for regular drink options setup');
       return;
     }
     if (!this.currentProduct) {
-      Logger.error('No current product selected for regular drink options setup');
+      console.error('No current product selected for regular drink options setup');
       return;
     }
     const drinkOptionsResult = this.getDrinkOptionsForProduct(this.currentProduct.name);
@@ -701,7 +694,7 @@ class OrderSystem {
 
   _validateDrinkOptions(drinkOptionsResult) {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for drink options validation');
+      console.error('No current product selected for drink options validation');
       return false;
     }
     const isValid = OrderSystemValidations.validateDrinkOptions(drinkOptionsResult, this.currentProduct.name);
@@ -714,7 +707,7 @@ class OrderSystem {
   // Helper functions for modal optimization
   _isJagermeisterBottle() {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for Jagermeister bottle check');
+      console.error('No current product selected for Jagermeister bottle check');
       return false;
     }
     return this.bottleCategory === 'DIGESTIVOS' && 
@@ -724,7 +717,7 @@ class OrderSystem {
 
   _updateModalTitle() {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for modal title update');
+      console.error('No current product selected for modal title update');
       return;
     }
     const modalTitle = document.querySelector('#drink-options-modal h3');
@@ -743,12 +736,10 @@ class OrderSystem {
     }
   }
 
-
-  _createElement(tag, className = '', textContent = '', id = null) {
+  _createElement(tag, className, textContent = '') {
     const element = document.createElement(tag);
     if (className) element.className = className;
     if (textContent) element.textContent = textContent;
-    if (id) element.id = id;
     return element;
   }
 
@@ -832,8 +823,10 @@ class OrderSystem {
       this.drinkCounts[option] = currentCount + 1;
       countDisplay.textContent = this.drinkCounts[option];
       if (optionContainer && optionContainer.classList) {
+          if (optionContainer && optionContainer.classList) {
         optionContainer.classList.add('selected');
       }
+        }
       this.updateTotalJagerDrinkCount();
     }
   }
@@ -1102,7 +1095,7 @@ class OrderSystem {
   _getDigestivoOptions(normalizedName, productName) {
     // Validate inputs
     if (!normalizedName || !productName || !this.currentProduct) {
-      Logger.error('Invalid inputs or no current product for digestivo options');
+      console.error('Invalid inputs or no current product for digestivo options');
       return { drinkOptions: ['Ninguno'], message: 'Sin acompañamientos' };
     }
     
@@ -1139,7 +1132,7 @@ class OrderSystem {
 
   confirmDrinkOptions() {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for drink options confirmation');
+      console.error('No current product selected for drink options confirmation');
       // Try to recover from modal state if possible
       const modal = document.getElementById('drink-options-modal');
       if (modal) {
@@ -1158,7 +1151,7 @@ class OrderSystem {
     
     // Ensure we're in order mode before adding to order
     if (!this.isOrderMode) {
-      Logger.warn('Attempting to add product when not in order mode, activating order mode');
+      console.warn('Attempting to add product when not in order mode, activating order mode');
       this.toggleOrderMode();
       
       // Wait for order mode to be fully activated and sidebar to be visible
@@ -1186,7 +1179,7 @@ class OrderSystem {
 
   _hasValidDrinkSelection() {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for drink selection validation');
+      console.error('No current product selected for drink selection validation');
       return false;
     }
     return OrderSystemValidations.hasValidDrinkSelection(this.selectedDrinks, this.drinkCounts, this.currentProduct);
@@ -1194,7 +1187,7 @@ class OrderSystem {
 
   _buildProductInfo() {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for building product info');
+      console.error('No current product selected for building product info');
       return { prefix: '', name: '', customization: 'Error: No product selected' };
     }
     const priceType = this.currentProduct.priceType;
@@ -1260,7 +1253,7 @@ class OrderSystem {
 
   _getOptionsForProduct(category, type) {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for getting options');
+      console.error('No current product selected for getting options');
       return type === 'liter' ? { options: ['Ninguno'], message: 'Error: No product selected' } : ['Ninguno'];
     }
     const productName = this.currentProduct.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
@@ -1329,7 +1322,7 @@ class OrderSystem {
 
   _setupOptionsModal(type) {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for options modal setup');
+      console.error('No current product selected for options modal setup');
       this._hideModal('drink-options-modal');
       return;
     }
@@ -1343,7 +1336,7 @@ class OrderSystem {
     optionsContainer.innerHTML = '';
     this.selectedDrinks = [];
     if (!this.currentProduct) {
-      Logger.error('No current product selected for options modal setup');
+      console.error('No current product selected for options modal setup');
       this._hideModal('drink-options-modal');
       return;
     }
@@ -1357,7 +1350,7 @@ class OrderSystem {
 
   _getOptionsForModalType(type) {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for getting modal options');
+      console.error('No current product selected for getting modal options');
       return ['Ninguno'];
     }
     const productName = this.currentProduct.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
@@ -1375,11 +1368,11 @@ class OrderSystem {
   }
 
   _renderOptionsGrid(options, container) {
-    const optionsGrid = this._createElement('div');
+    const optionsGrid = document.createElement('div');
     optionsGrid.className = 'options-grid';
     
     options.forEach(option => {
-      const optionButton = this._createElement('button');
+      const optionButton = document.createElement('button');
       optionButton.className = 'drink-option';
       optionButton.textContent = option;
       optionButton.addEventListener('click', () => {
@@ -1398,6 +1391,7 @@ class OrderSystem {
   _attachModalEventListeners() {
     // Event listeners for modal buttons are now handled by event delegation
     // in handleDelegatedEvent method to prevent duplicate listeners
+    // No need to attach individual listeners here
   }
 
   showFoodCustomizationModal() {
@@ -1424,7 +1418,7 @@ class OrderSystem {
 
   _addFoodToOrder(customization) {
     if (!this.currentProduct) {
-      Logger.error('No current product selected for food order');
+      console.error('No current product selected for food order');
       return;
     }
     this.addProductToOrder({
@@ -1439,7 +1433,7 @@ class OrderSystem {
   _confirmIngredientCustomization() {
     const ingredientsElement = document.getElementById('ingredients-to-remove');
     if (!ingredientsElement) {
-      Logger.error('Element with ID "ingredients-to-remove" not found');
+      console.error('Element with ID "ingredients-to-remove" not found');
       return;
     }
     const ingredientsToRemove = ingredientsElement.value.trim();
@@ -1489,7 +1483,7 @@ class OrderSystem {
     if (!this._validateCookingTerm()) return;
     
     if (!this.currentProduct) {
-      Logger.error('No current product selected for meat order');
+      console.error('No current product selected for meat order');
       return;
     }
     
@@ -1511,7 +1505,7 @@ class OrderSystem {
     if (!this._validateCookingTerm()) return;
     const garnishElement = document.getElementById('garnish-modifications');
     if (!garnishElement) {
-      Logger.error('Element with ID "garnish-modifications" not found');
+      console.error('Element with ID "garnish-modifications" not found');
       return;
     }
     const garnishModifications = garnishElement.value.trim();
@@ -1544,7 +1538,7 @@ class OrderSystem {
   addProductToOrder(orderItem) {
     // Ensure we're in order mode before adding to order
     if (!this.isOrderMode) {
-      Logger.warn('Attempting to add product when not in order mode, activating order mode');
+      console.warn('Attempting to add product when not in order mode, activating order mode');
       this.toggleOrderMode();
     }
     
@@ -1555,8 +1549,11 @@ class OrderSystem {
         sidebar.classList.remove('sidebar-hidden');
         sidebar.classList.add('sidebar-visible');
         
-        // Use centralized helper for content wrapper sidebar class
-        this._toggleContentWrapperSidebar(true);
+        // Add 'with-sidebar' class to content wrapper for mobile landscape mode
+        const contentWrapper = document.querySelector('.content-wrapper');
+        if (contentWrapper) {
+          contentWrapper.classList.add('with-sidebar');
+        }
         
         // Wait a bit for the sidebar to become visible before updating display
         setTimeout(() => {
@@ -1585,49 +1582,52 @@ class OrderSystem {
     
     const orderItemsContainer = document.getElementById('order-items');
     if (!orderItemsContainer) {
-      Logger.warn('Element with ID "order-items" not found - sidebar may not be visible yet');
+      console.warn('Element with ID "order-items" not found - sidebar may not be visible yet');
       
       // Debug: Log current DOM state
       const sidebar = document.getElementById(CONSTANTS.SELECTORS.SIDEBAR);
-      Logger.debug('🔍 DEBUG - updateOrderDisplay: order-items not found');
-      Logger.debug('  - isOrderMode:', this.isOrderMode);
-      Logger.debug('  - sidebar found:', !!sidebar);
-      Logger.debug('  - sidebar classes:', sidebar ? sidebar.className : 'N/A');
-      Logger.debug('  - sidebar style.display:', sidebar ? sidebar.style.display : 'N/A');
-      Logger.debug('  - order-items in DOM:', !!document.getElementById('order-items'));
+      console.log('🔍 DEBUG - updateOrderDisplay: order-items not found');
+      console.log('  - isOrderMode:', this.isOrderMode);
+      console.log('  - sidebar found:', !!sidebar);
+      console.log('  - sidebar classes:', sidebar ? sidebar.className : 'N/A');
+      console.log('  - sidebar style.display:', sidebar ? sidebar.style.display : 'N/A');
+      console.log('  - order-items in DOM:', !!document.getElementById('order-items'));
       
       // If order-items is not found but we're in order mode, try to make sidebar visible and retry
       if (this.isOrderMode) {
         if (sidebar) {
-          Logger.debug('  - Making sidebar visible...');
+          console.log('  - Making sidebar visible...');
           // Force sidebar to be visible
           sidebar.classList.remove('sidebar-hidden');
           sidebar.classList.add('sidebar-visible');
           
-          // Use centralized helper for content wrapper sidebar class
-          this._toggleContentWrapperSidebar(true);
+          // Add 'with-sidebar' class to content wrapper for mobile landscape mode
+          const contentWrapper = document.querySelector('.content-wrapper');
+          if (contentWrapper) {
+            contentWrapper.classList.add('with-sidebar');
+          }
           
-          Logger.debug('  - sidebar classes after change:', sidebar.className);
+          console.log('  - sidebar classes after change:', sidebar.className);
           
           // Try again after a short delay to allow DOM to update
           setTimeout(() => {
             const retryContainer = document.getElementById('order-items');
-            Logger.debug('🔍 DEBUG - updateOrderDisplay retry after 150ms:');
-            Logger.debug('  - order-items found on retry:', !!retryContainer);
-            Logger.debug('  - sidebar classes on retry:', sidebar ? sidebar.className : 'N/A');
+            console.log('🔍 DEBUG - updateOrderDisplay retry after 150ms:');
+            console.log('  - order-items found on retry:', !!retryContainer);
+            console.log('  - sidebar classes on retry:', sidebar ? sidebar.className : 'N/A');
             if (retryContainer) {
-              Logger.debug('  - SUCCESS: order-items found, updating content');
+              console.log('  - SUCCESS: order-items found, updating content');
               this._updateOrderDisplayContent(retryContainer);
             } else {
-              Logger.error('Element with ID "order-items" still not found after making sidebar visible');
-              Logger.debug('  - All elements with class sidebar-visible:', document.querySelectorAll('.sidebar-visible').length);
-              Logger.debug('  - All elements with id order-sidebar:', document.querySelectorAll('#order-sidebar').length);
+              console.error('Element with ID "order-items" still not found after making sidebar visible');
+              console.log('  - All elements with class sidebar-visible:', document.querySelectorAll('.sidebar-visible').length);
+              console.log('  - All elements with id order-sidebar:', document.querySelectorAll('#order-sidebar').length);
               // Don't force order mode off, just log the error
               Logger.error('Unable to find order-items container even after making sidebar visible');
             }
           }, 150); // Increased timeout to allow for CSS transitions
         } else {
-          Logger.error('Sidebar element not found in DOM');
+          console.error('Sidebar element not found in DOM');
         }
       }
       return;
@@ -1640,24 +1640,24 @@ class OrderSystem {
 
     const orderTotalAmount = document.getElementById('order-total-amount');
     if (!orderTotalAmount) {
-      Logger.error('Element with ID "order-total-amount" not found');
+      console.error('Element with ID "order-total-amount" not found');
       return;
     }
 
     const itemsToDisplay = this.core.getItems(); 
 
     itemsToDisplay.forEach(item => {
-      const itemElement = this._createElement('div');
+      const itemElement = document.createElement('div');
       itemElement.className = 'order-item';
 
-      const itemHeader = this._createElement('div');
+      const itemHeader = document.createElement('div');
       itemHeader.className = 'order-item-header';
 
-      const itemName = this._createElement('div');
+      const itemName = document.createElement('div');
       itemName.className = 'order-item-name';
       itemName.textContent = item.name;
 
-      const removeButton = this._createElement('button');
+      const removeButton = document.createElement('button');
       removeButton.className = 'remove-order-item';
       setSafeInnerHTML(removeButton, '&times;');
       removeButton.addEventListener('click', () => {
@@ -1667,7 +1667,7 @@ class OrderSystem {
       itemHeader.appendChild(itemName);
       itemHeader.appendChild(removeButton);
 
-      const itemPrice = this._createElement('div');
+      const itemPrice = document.createElement('div');
       itemPrice.className = 'order-item-price';
       itemPrice.textContent = formatPrice(item.price);
 
@@ -1676,7 +1676,7 @@ class OrderSystem {
 
       if (item.customizations && item.customizations.length > 0) {
         item.customizations.forEach(customization => {
-          const customElem = this._createElement('div');
+          const customElem = document.createElement('div');
           customElem.className = 'order-item-customization';
           customElem.textContent = customization;
           itemElement.appendChild(customElem);
@@ -1944,7 +1944,7 @@ class OrderSystem {
   }
 
   _createOrdersScreen() {
-    const ordersScreen = this._createElement('div');
+    const ordersScreen = document.createElement('div');
     ordersScreen.className = 'orders-screen';
     
     const header = this._createOrdersHeader();
@@ -1975,7 +1975,12 @@ class OrderSystem {
     return header;
   }
 
-
+  _createElement(tag, className, id = null) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (id) element.id = id;
+    return element;
+  }
 
   _createButton({ class: className, text, handler }) {
     const button = this._createElement('button', className);
@@ -2091,25 +2096,25 @@ class OrderSystem {
   }
 
   _createOrderElement(order, index, includeDeleteButton) {
-    const orderElement = this._createElement('div');
+    const orderElement = document.createElement('div');
     orderElement.className = 'saved-order';
 
-    const orderHeader = this._createElement('h3');
+    const orderHeader = document.createElement('h3');
     orderHeader.textContent = `ORDEN ${index + 1} - ${order.date}`;
     orderElement.appendChild(orderHeader);
 
-    const orderItemsList = this._createElement('div');
+    const orderItemsList = document.createElement('div');
     orderItemsList.className = 'saved-order-items';
 
     order.items.forEach(item => {
-      const itemElement = this._createElement('div');
+      const itemElement = document.createElement('div');
       itemElement.className = 'saved-order-item';
 
-      const itemName = this._createElement('div');
+      const itemName = document.createElement('div');
       itemName.className = 'saved-order-item-name';
       itemName.textContent = item.name;
 
-      const itemPrice = this._createElement('div');
+      const itemPrice = document.createElement('div');
       itemPrice.className = 'saved-order-item-price';
       itemPrice.textContent = formatPrice(item.price);
 
@@ -2118,7 +2123,7 @@ class OrderSystem {
 
       if (item.customizations && item.customizations.length > 0) {
         item.customizations.forEach(customization => {
-          const customElem = this._createElement('div');
+          const customElem = document.createElement('div');
           customElem.className = 'saved-order-item-customization';
           customElem.textContent = customization;
           itemElement.appendChild(customElem);
@@ -2128,13 +2133,13 @@ class OrderSystem {
     });
     orderElement.appendChild(orderItemsList);
 
-    const orderTotal = this._createElement('div');
+    const orderTotal = document.createElement('div');
     orderTotal.className = 'saved-order-total';
     orderTotal.textContent = `Total: ${formatPrice(order.total)}`;
     orderElement.appendChild(orderTotal);
 
     if (includeDeleteButton) {
-      const deleteButton = this._createElement('button');
+      const deleteButton = document.createElement('button');
       deleteButton.className = 'nav-button delete-order-btn';
       deleteButton.textContent = 'Eliminar Orden';
       // Determinar si estamos en historial o en órdenes activas
@@ -2191,10 +2196,10 @@ class OrderSystem {
   _showConfirmationModal(title, message, onConfirm) {
     const modalBackdrop = this._createElement('div', 'modal-backdrop');
     const modalContent = this._createElement('div', 'modal-content');
-
+    
     const modalTitle = this._createElement('h3');
     modalTitle.textContent = title;
-
+    
     const modalMessage = this._createElement('p');
     modalMessage.textContent = message;
     Object.assign(modalMessage.style, {
